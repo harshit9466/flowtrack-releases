@@ -1,222 +1,1096 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlowTrack — AI-Powered Time Tracking</title>
-  <meta name="description" content="Desktop time tracking that fits your workflow. Jira integration, AI summaries, smart nudges. Zero friction.">
+  <title>FlowTrack — Time tracking that fits your flow</title>
+  <meta name="description" content="FlowTrack is a dark-mode desktop time tracker with Jira integration, AI assistance, smart nudges, and near-zero friction logging.">
   <link rel="canonical" href="https://flowtrack.space">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { 50: '#eef2ff', 100: '#e0e7ff', 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' },
-          }
-        }
-      }
-    }
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    .gradient-text {
-      background: linear-gradient(135deg, #818cf8, #6366f1, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    :root {
+      --bg: #08080f;
+      --bg-soft: #0d1020;
+      --bg-surface: rgba(15, 23, 42, 0.72);
+      --bg-surface-strong: rgba(17, 24, 39, 0.92);
+      --text-1: #f8fafc;
+      --text-2: #cbd5e1;
+      --text-3: #94a3b8;
+      --border: rgba(148, 163, 184, 0.16);
+      --border-strong: rgba(129, 140, 248, 0.24);
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-soft: rgba(99, 102, 241, 0.16);
+      --success: #34d399;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.3);
+      --max-width: 1160px;
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
     }
-    .glow-btn { box-shadow: 0 0 40px -8px rgba(99, 102, 241, 0.4); }
-    .glow-btn:hover { box-shadow: 0 0 50px -6px rgba(99, 102, 241, 0.6); }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-1);
+      background:
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 30%),
+        radial-gradient(circle at 85% 12%, rgba(129, 140, 248, 0.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(79, 70, 229, 0.12), transparent 34%),
+        var(--bg);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      opacity: 0.16;
+    }
+
+    a { color: inherit; }
+    img { max-width: 100%; }
+    code, kbd { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #c4b5fd 0%, #818cf8 45%, #6366f1 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .label-pill,
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(129, 140, 248, 0.2);
+      background: rgba(15, 23, 42, 0.68);
+      color: var(--text-2);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+
+    .pulse-dot,
+    .tray-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: pulseDot 1.8s ease-in-out infinite;
+      box-shadow: 0 0 14px rgba(52, 211, 153, 0.5);
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 8, 15, 0.78);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .nav-inner {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-logo,
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon,
+    .footer-logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.22), rgba(129, 140, 248, 0.08));
+      border: 1px solid rgba(129, 140, 248, 0.24);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .nav-logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+      padding: 0;
+      margin: 0 0 0 auto;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-3);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.18s ease;
+    }
+
+    .nav-links a:hover,
+    .footer-links a:hover { color: var(--text-1); }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-light), var(--accent));
+      color: white;
+      border: 1px solid rgba(196, 181, 253, 0.18);
+      box-shadow: 0 20px 40px rgba(79, 70, 229, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      padding: 12px 22px;
+      font-size: 14px;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .feature-card:hover,
+    .step:hover,
+    .tech-badge:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      color: var(--text-1);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 12px 22px;
+      font-size: 14px;
+    }
+
+    .hero {
+      position: relative;
+      padding: 68px 0 88px;
+    }
+
+    .hero-glow {
+      position: absolute;
+      left: 50%;
+      top: 60px;
+      transform: translateX(-50%);
+      width: min(920px, 90vw);
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(129, 140, 248, 0.08) 35%, transparent 72%);
+      filter: blur(16px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-h1 {
+      margin: 0 auto 22px;
+      max-width: 860px;
+      font-size: clamp(46px, 7vw, 76px);
+      line-height: 1.02;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-sub {
+      max-width: 760px;
+      margin: 0 auto 30px;
+      font-size: clamp(18px, 2vw, 21px);
+      color: var(--text-2);
+      line-height: 1.75;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .btn-lg {
+      padding: 15px 28px;
+      font-size: 15px;
+      border-radius: 16px;
+    }
+
+    .hero-trust {
+      margin: 0;
+      color: var(--text-3);
+      font-size: 13px;
+    }
+
+    .mockup-wrap {
+      position: relative;
+      margin: 60px auto 0;
+      max-width: 920px;
+      padding-top: 24px;
+      animation: floatBob 7s ease-in-out infinite;
+    }
+
+    .mockup-window {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(129, 140, 248, 0.18);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.88));
+      box-shadow: var(--shadow);
+    }
+
+    .mockup-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .tl-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .tl-red { background: #fb7185; }
+    .tl-yellow { background: #fbbf24; }
+    .tl-green { background: #34d399; }
+
+    .titlebar-label,
+    .titlebar-shortcut {
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    .titlebar-label { margin-left: 8px; }
+    .titlebar-shortcut { margin-left: auto; }
+
+    .mockup-body {
+      padding: 28px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .capture-input,
+    .suggestion-row,
+    .tray-bubble {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .capture-input {
+      padding: 15px 16px;
+      background: rgba(12, 18, 32, 0.96);
+    }
+
+    .capture-val,
+    .ticket-chip,
+    .start-chip,
+    .timer-pill,
+    .sprint-chip {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .capture-val,
+    .ticket-chip {
+      color: var(--accent-light);
+      background: rgba(99, 102, 241, 0.1);
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(129, 140, 248, 0.16);
+      white-space: nowrap;
+    }
+
+    .capture-desc,
+    .ticket-name {
+      color: var(--text-2);
+      font-size: 14px;
+      font-weight: 500;
+      min-width: 0;
+      flex: 1;
+      text-align: left;
+    }
+
+    .timer-pill,
+    .start-chip,
+    .sprint-chip {
+      margin-left: auto;
+      padding: 7px 11px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .timer-pill {
+      color: #dbeafe;
+      background: rgba(30, 64, 175, 0.26);
+      border: 1px solid rgba(96, 165, 250, 0.16);
+    }
+
+    .start-chip {
+      color: #dcfce7;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.16);
+    }
+
+    .suggestion-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .suggestion-row {
+      padding: 14px 16px;
+    }
+
+    .suggestion-row.active {
+      border-color: rgba(129, 140, 248, 0.24);
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .mockup-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 6px;
+    }
+
+    .mockup-hint {
+      color: var(--text-3);
+      font-size: 12px;
+    }
+
+    .sprint-chip {
+      margin-left: 0;
+      color: var(--text-2);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+    }
+
+    .tray-bubble {
+      position: absolute;
+      right: -10px;
+      bottom: -16px;
+      padding: 14px 16px;
+      min-width: 260px;
+      justify-content: flex-start;
+      background: rgba(8, 8, 15, 0.94);
+      border-color: rgba(129, 140, 248, 0.2);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .tray-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-1);
+    }
+
+    .tray-sub {
+      font-size: 12px;
+      color: var(--text-3);
+      text-align: left;
+    }
+
+    .stats-strip {
+      border-top: 1px solid rgba(148, 163, 184, 0.08);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .stats-grid {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 26px 0;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-1);
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      color: var(--text-3);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .section {
+      padding: 108px 0;
+    }
+
+    .section-inner {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section-header {
+      max-width: 720px;
+      margin: 0 auto 54px;
+      text-align: center;
+    }
+
+    .section-h2 {
+      margin: 18px 0 16px;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+    }
+
+    .section-sub {
+      margin: 0;
+      color: var(--text-2);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .feature-card,
+    .step {
+      position: relative;
+      padding: 28px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .feature-card:hover,
+    .step:hover {
+      border-color: rgba(129, 140, 248, 0.28);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.28);
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .feature-title,
+    .step-title {
+      margin: 0 0 12px;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .feature-desc,
+    .step-desc {
+      margin: 0;
+      color: var(--text-2);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    kbd {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 7px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-1);
+      font-size: 12px;
+      box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .hiw-section {
+      padding-top: 96px;
+    }
+
+    .steps-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .step::before {
+      content: '';
+      position: absolute;
+      top: 34px;
+      right: -22px;
+      width: 24px;
+      border-top: 1px dashed rgba(129, 140, 248, 0.3);
+    }
+
+    .step:last-child::before { display: none; }
+
+    .step-num {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--accent-light);
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(129, 140, 248, 0.2);
+    }
+
+    .tech-section {
+      padding: 54px 0 72px;
+      border-top: 1px solid rgba(148, 163, 184, 0.08);
+      background: rgba(255, 255, 255, 0.015);
+      text-align: center;
+    }
+
+    .tech-label {
+      margin-bottom: 20px;
+      color: var(--text-3);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .tech-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .tech-badge {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-2);
+      font-size: 14px;
+      font-weight: 500;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .tech-badge:hover {
+      border-color: rgba(129, 140, 248, 0.28);
+      background: rgba(99, 102, 241, 0.08);
+      color: var(--text-1);
+    }
+
+    .cta-section {
+      border-top: 1px solid rgba(99, 102, 241, 0.12);
+      background: radial-gradient(ellipse at 50% 120%, rgba(99, 102, 241, 0.16) 0%, rgba(139, 92, 246, 0.06) 38%, transparent 70%);
+      padding: 110px 0;
+      text-align: center;
+    }
+
+    .cta-inner {
+      width: min(680px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .cta-h2 {
+      margin: 16px 0 18px;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+    }
+
+    .cta-sub {
+      margin: 0 0 32px;
+      color: var(--text-2);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .cta-trust {
+      margin-top: 16px;
+      color: var(--text-3);
+      font-size: 13px;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.08);
+      padding: 28px 0 34px;
+    }
+
+    .footer-inner {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo-text {
+      color: var(--text-3);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--text-3);
+      font-size: 14px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--text-3);
+      transition: color 0.18s ease;
+    }
+
+    .author-link { color: var(--text-2) !important; }
+
+    .a1 { opacity: 0; animation: fadeUp 0.65s ease-out 0.05s forwards; }
+    .a2 { opacity: 0; animation: fadeUp 0.65s ease-out 0.18s forwards; }
+    .a3 { opacity: 0; animation: fadeUp 0.65s ease-out 0.31s forwards; }
+    .a4 { opacity: 0; animation: fadeUp 0.65s ease-out 0.44s forwards; }
+    .a5 { opacity: 0; animation: fadeUp 0.65s ease-out 0.58s forwards; }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.55; transform: scale(0.88); }
+    }
+
+    @keyframes floatBob {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.3);
+      border-radius: 999px;
+    }
+
+    @media (max-width: 1040px) {
+      .features-grid,
+      .steps-grid,
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .step:nth-child(2)::before { display: none; }
+    }
+
+    @media (max-width: 780px) {
+      .nav-inner {
+        min-height: auto;
+        padding: 18px 0;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        margin: 0;
+      }
+
+      .hero { padding-top: 44px; }
+      .hero-content,
+      .section-inner,
+      .cta-inner,
+      .stats-grid,
+      .footer-inner,
+      .nav-inner { width: min(var(--max-width), calc(100% - 28px)); }
+
+      .mockup-body { padding: 18px; }
+      .tray-bubble {
+        position: static;
+        margin-top: 16px;
+        min-width: 0;
+      }
+
+      .features-grid,
+      .steps-grid,
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .step::before { display: none; }
+      .section { padding: 86px 0; }
+      .tech-section { padding-top: 42px; }
+    }
+
+    @media (max-width: 560px) {
+      .hero-h1 { font-size: clamp(38px, 11vw, 52px); }
+      .hero-sub, .section-sub, .cta-sub { font-size: 16px; }
+      .hero-ctas { flex-direction: column; }
+      .btn-primary, .btn-secondary, .btn-lg { width: 100%; }
+      .capture-input,
+      .suggestion-row { flex-wrap: wrap; }
+      .timer-pill,
+      .start-chip,
+      .sprint-chip { margin-left: 0; }
+      .mockup-footer { align-items: flex-start; }
+    }
   </style>
 </head>
-<body class="bg-[#0a0a1a] text-white antialiased">
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-logo" aria-label="FlowTrack home">
+        <div class="nav-logo-icon">⏱</div>
+        <span class="nav-logo-text">FlowTrack</span>
+      </a>
 
-  <!-- ═══ NAV ═══ -->
-  <nav class="fixed top-0 w-full z-50 bg-[#0a0a1a]/90 backdrop-blur-xl border-b border-white/5">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
-        <span class="text-2xl">⏱️</span>
-        <span class="font-bold text-xl tracking-tight">FlowTrack</span>
-      </div>
-      <div class="flex items-center gap-8">
-        <a href="#features" class="text-sm text-zinc-400 hover:text-white transition-colors">Features</a>
-        <a href="#how-it-works" class="text-sm text-zinc-400 hover:text-white transition-colors">How it works</a>
-        <a href="#download" class="bg-brand-600 hover:bg-brand-500 text-white text-sm font-medium px-5 py-2 rounded-lg transition-all glow-btn">Download</a>
-      </div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="https://github.com/harshit9466/Flowtrack" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+
+      <a href="https://github.com/harshit9466/flowtrack-releases/releases/latest" class="btn-primary" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path>
+          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path>
+        </svg>
+        Download
+      </a>
     </div>
   </nav>
 
-  <!-- ═══ HERO ═══ -->
-  <section class="pt-36 pb-24 px-6">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center gap-2 mb-8 px-4 py-2 bg-brand-900/30 border border-brand-700/30 rounded-full">
-        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-        <span class="text-brand-400 text-sm font-medium">Now with AI-powered insights</span>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <div class="a1" style="margin-bottom: 26px;">
+          <span class="hero-badge">
+            <span class="pulse-dot"></span>
+            Windows desktop app · Free download · AI-ready
+          </span>
+        </div>
+
+        <h1 class="hero-h1 a2">Time tracking that <span class="gradient-text">fits your flow</span></h1>
+
+        <p class="hero-sub a3">Lives in your system tray. Knows your Jira tickets. Detects your meetings. Near-zero friction.</p>
+
+        <div class="hero-ctas a4">
+          <a href="https://github.com/harshit9466/flowtrack-releases/releases/latest" class="btn-primary btn-lg" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path>
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path>
+            </svg>
+            Download for Windows
+          </a>
+          <a href="#features" class="btn-secondary btn-lg">Explore features</a>
+        </div>
+
+        <p class="hero-trust a4">Free · Windows 10+ · Auto-updates built in</p>
+
+        <div class="mockup-wrap a5" aria-hidden="true">
+          <div class="mockup-window">
+            <div class="mockup-titlebar">
+              <span class="tl-dot tl-red"></span>
+              <span class="tl-dot tl-yellow"></span>
+              <span class="tl-dot tl-green"></span>
+              <span class="titlebar-label">FlowTrack — Quick Capture</span>
+              <span class="titlebar-shortcut">Ctrl+Shift+Space</span>
+            </div>
+
+            <div class="mockup-body">
+              <div class="capture-input">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <span class="capture-val">B1PC-4182</span>
+                <span class="capture-desc">JWT auth middleware</span>
+                <span class="timer-pill">▶ 1:23:45</span>
+              </div>
+
+              <div class="suggestion-list">
+                <div class="suggestion-row active">
+                  <span class="ticket-chip">B1PC-4182</span>
+                  <span class="ticket-name">JWT auth middleware</span>
+                  <span class="timer-pill">▶ 1:23:45</span>
+                </div>
+                <div class="suggestion-row">
+                  <span class="ticket-chip">B1PC-3598</span>
+                  <span class="ticket-name">CI/CD pipeline integration</span>
+                  <span class="start-chip">▶ Start</span>
+                </div>
+                <div class="suggestion-row">
+                  <span class="ticket-chip">B1PC-4201</span>
+                  <span class="ticket-name">Database schema migration</span>
+                  <span class="start-chip">▶ Start</span>
+                </div>
+                <div class="suggestion-row">
+                  <span class="ticket-chip">Standup</span>
+                  <span class="ticket-name">Detected Teams meeting</span>
+                  <span class="start-chip">Auto log</span>
+                </div>
+              </div>
+
+              <div class="mockup-footer">
+                <span class="mockup-hint">↑↓ navigate · Enter start · Esc close</span>
+                <span class="sprint-chip">4 sprint tickets</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tray-bubble">
+            <div>
+              <div class="tray-title"><span class="tray-dot"></span><span>⏱ B1PC-4182 | 1:23</span></div>
+              <div class="tray-sub">JWT auth · tracking · click to stop</div>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <h1 class="text-5xl sm:text-6xl font-extrabold leading-[1.1] mb-6 tracking-tight">
-        Time tracking that<br><span class="gradient-text">fits your flow</span>
-      </h1>
+    <div class="stats-strip">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-value">1</div>
+          <div class="stat-label">Hotkey to log</div>
+        </div>
+        <div>
+          <div class="stat-value">6</div>
+          <div class="stat-label">AI providers</div>
+        </div>
+        <div>
+          <div class="stat-value">0</div>
+          <div class="stat-label">Browser tabs</div>
+        </div>
+        <div>
+          <div class="stat-value">&lt;10s</div>
+          <div class="stat-label">To log a session</div>
+        </div>
+      </div>
+    </div>
 
-      <p class="text-lg text-zinc-400 max-w-xl mx-auto mb-10 leading-relaxed">
-        Lives in your system tray. Knows your Jira tickets. Detects your meetings.
-        Asks the right questions at the right time. <span class="text-zinc-300 font-medium">Near-zero friction.</span>
-      </p>
+    <section id="features" class="section">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="label-pill">Features</span>
+          <h2 class="section-h2">Everything in your flow. <span class="gradient-text">Nothing in your way.</span></h2>
+          <p class="section-sub">Built for engineers who want fast time logging, accurate Jira context, and fewer interruptions throughout the day.</p>
+        </div>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
-        <a href="https://github.com/harshit9466/flowtrack-releases/releases/latest"
-           class="bg-brand-600 hover:bg-brand-500 text-white font-semibold px-8 py-3.5 rounded-xl text-lg transition-all glow-btn">
-          ⬇ Download for Windows
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon" style="background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.22);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            </div>
+            <h3 class="feature-title">Quick Capture</h3>
+            <p class="feature-desc">Press <kbd>Ctrl+Shift+Space</kbd>, search a ticket, and start tracking instantly. Always one hotkey away, wherever you are.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.22);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            </div>
+            <h3 class="feature-title">Jira Integration</h3>
+            <p class="feature-desc">Connect with OAuth, autocomplete sprint tickets, and keep Jira as your source of truth without living in another browser tab.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" style="background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.22);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2a10 10 0 1 0 10 10"></path><path d="M12 8v4l3 3"></path><path d="M20 2v4m0 0h-4m4 0 2.5-2.5"></path></svg>
+            </div>
+            <h3 class="feature-title">AI Assistant</h3>
+            <p class="feature-desc">Auto-fill descriptions, generate EOD summaries, and choose from six providers for the workflow that already fits your stack.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" style="background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.22);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            </div>
+            <h3 class="feature-title">Smart Nudges</h3>
+            <p class="feature-desc">Get gentle reminders for idle time, forgotten timers, and end-of-day wrap-ups exactly when they matter.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.22);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
+            </div>
+            <h3 class="feature-title">Insights &amp; Analytics</h3>
+            <p class="feature-desc">See focus time, meeting load, and per-ticket trends so your weekly review is backed by real data instead of guesswork.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.22);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.262a1 1 0 0 1-1.447.894L15 14"></path><rect x="3" y="6" width="12" height="12" rx="2"></rect></svg>
+            </div>
+            <h3 class="feature-title">Meeting Detection</h3>
+            <p class="feature-desc">Detect Teams, Zoom, and Meet calls, log them with context, and avoid losing focus time to manual cleanup later.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section hiw-section">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="label-pill">How it works</span>
+          <h2 class="section-h2">Zero to tracked in one clean <span class="gradient-text">desktop flow.</span></h2>
+          <p class="section-sub">No setup ritual. No context switching. Just install, trigger, and keep moving.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step">
+            <div class="step-num">01</div>
+            <h3 class="step-title">Install &amp; connect</h3>
+            <p class="step-desc">Install FlowTrack, sign in, and connect your Jira workspace. Your sprint tickets are ready the moment the app launches.</p>
+          </article>
+
+          <article class="step">
+            <div class="step-num">02</div>
+            <h3 class="step-title">Track with one hotkey</h3>
+            <p class="step-desc">Press <kbd>Ctrl+Shift+Space</kbd> from anywhere, pick a ticket, and start the timer without breaking concentration.</p>
+          </article>
+
+          <article class="step">
+            <div class="step-num">03</div>
+            <h3 class="step-title">Get your EOD in one click</h3>
+            <p class="step-desc">Generate a clean end-of-day summary from real session data, then share it in Slack or sync worklogs back to Jira.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="tech-section">
+      <div class="container">
+        <div class="tech-label">Built with</div>
+        <div class="tech-badges">
+          <span class="tech-badge">Tauri 2 (Rust)</span>
+          <span class="tech-badge">React 18</span>
+          <span class="tech-badge">TypeScript</span>
+          <span class="tech-badge">Spring Boot 3.4</span>
+          <span class="tech-badge">PostgreSQL</span>
+          <span class="tech-badge">JWT Auth</span>
+          <span class="tech-badge">AES-256-GCM</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="download" class="cta-section">
+      <div class="cta-inner">
+        <span class="label-pill">Get started</span>
+        <h2 class="cta-h2">Stop losing track. <span class="gradient-text">Start tracking time.</span></h2>
+        <p class="cta-sub">FlowTrack keeps time tracking inside your actual workflow: tray-first, Jira-aware, meeting-aware, and fast enough to use every day.</p>
+        <a href="https://github.com/harshit9466/flowtrack-releases/releases/latest" class="btn-primary btn-lg" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path>
+            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path>
+          </svg>
+          Download FlowTrack
         </a>
-        <a href="#features"
-           class="border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white font-medium px-7 py-3.5 rounded-xl transition-all">
-          Learn more →
-        </a>
+        <p class="cta-trust">Windows 10+ · Free download · Latest release on GitHub</p>
       </div>
-      <p class="text-zinc-600 text-sm">Free · Windows 10+ · Auto-updates built in</p>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- ═══ STATS BAR ═══ -->
-  <section class="py-10 px-6 border-y border-white/5 bg-white/[0.02]">
-    <div class="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
-      <div>
-        <div class="text-3xl font-bold text-white">1</div>
-        <div class="text-sm text-zinc-500 mt-1">Hotkey to log</div>
-      </div>
-      <div>
-        <div class="text-3xl font-bold text-white">6</div>
-        <div class="text-sm text-zinc-500 mt-1">AI providers</div>
-      </div>
-      <div>
-        <div class="text-3xl font-bold text-white">0</div>
-        <div class="text-sm text-zinc-500 mt-1">Browser tabs needed</div>
-      </div>
-      <div>
-        <div class="text-3xl font-bold text-white">&lt;10s</div>
-        <div class="text-sm text-zinc-500 mt-1">To log a session</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ FEATURES ═══ -->
-  <section id="features" class="py-24 px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Everything you need,<br class="sm:hidden"> nothing you don't</h2>
-        <p class="text-zinc-500 max-w-lg mx-auto">Built for developers who want to track time without leaving their flow.</p>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 hover:border-brand-700/50 transition-all hover:-translate-y-0.5">
-          <div class="w-11 h-11 bg-brand-900/40 border border-brand-700/30 rounded-xl flex items-center justify-center text-xl mb-4">⚡</div>
-          <h3 class="text-white font-semibold text-lg mb-2">Quick Capture</h3>
-          <p class="text-zinc-400 text-sm leading-relaxed">Ctrl+Shift+Space → type ticket → start timer. Under 10 seconds. Always one hotkey away.</p>
-        </div>
-
-        <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 hover:border-brand-700/50 transition-all hover:-translate-y-0.5">
-          <div class="w-11 h-11 bg-blue-900/40 border border-blue-700/30 rounded-xl flex items-center justify-center text-xl mb-4">🔗</div>
-          <h3 class="text-white font-semibold text-lg mb-2">Jira Integration</h3>
-          <p class="text-zinc-400 text-sm leading-relaxed">OAuth 2.0 connection. Ticket autocomplete. Sprint sync. Optional worklog push back to Jira.</p>
-        </div>
-
-        <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 hover:border-brand-700/50 transition-all hover:-translate-y-0.5">
-          <div class="w-11 h-11 bg-purple-900/40 border border-purple-700/30 rounded-xl flex items-center justify-center text-xl mb-4">🤖</div>
-          <h3 class="text-white font-semibold text-lg mb-2">AI Assistant</h3>
-          <p class="text-zinc-400 text-sm leading-relaxed">Auto-fill descriptions. EOD summaries. Morning standup plans. Supports Claude, Gemini, OpenAI, Ollama.</p>
-        </div>
-
-        <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 hover:border-brand-700/50 transition-all hover:-translate-y-0.5">
-          <div class="w-11 h-11 bg-amber-900/40 border border-amber-700/30 rounded-xl flex items-center justify-center text-xl mb-4">🔔</div>
-          <h3 class="text-white font-semibold text-lg mb-2">Smart Nudges</h3>
-          <p class="text-zinc-400 text-sm leading-relaxed">Idle detection. No-timer reminders. EOD warnings. The app comes to you — you don't go to it.</p>
-        </div>
-
-        <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 hover:border-brand-700/50 transition-all hover:-translate-y-0.5">
-          <div class="w-11 h-11 bg-emerald-900/40 border border-emerald-700/30 rounded-xl flex items-center justify-center text-xl mb-4">📊</div>
-          <h3 class="text-white font-semibold text-lg mb-2">Insights & Analytics</h3>
-          <p class="text-zinc-400 text-sm leading-relaxed">Daily trend charts. Time per ticket breakdown. Meeting percentage. Focus blocks. CSV export.</p>
-        </div>
-
-        <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 hover:border-brand-700/50 transition-all hover:-translate-y-0.5">
-          <div class="w-11 h-11 bg-rose-900/40 border border-rose-700/30 rounded-xl flex items-center justify-center text-xl mb-4">📞</div>
-          <h3 class="text-white font-semibold text-lg mb-2">Meeting Detection</h3>
-          <p class="text-zinc-400 text-sm leading-relaxed">Auto-detects Teams, Zoom & Google Meet. Pauses your timer. Logs the meeting. Resumes when you're done.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ HOW IT WORKS ═══ -->
-  <section id="how-it-works" class="py-24 px-6 bg-white/[0.02] border-y border-white/5">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-4">How it works</h2>
-        <p class="text-zinc-500">Three steps. That's it.</p>
-      </div>
-
-      <div class="grid sm:grid-cols-3 gap-10">
-        <div class="text-center">
-          <div class="w-14 h-14 rounded-2xl bg-brand-900/30 border border-brand-700/30 flex items-center justify-center text-brand-400 font-bold text-xl mx-auto mb-5">1</div>
-          <h3 class="text-white font-semibold text-lg mb-2">Install & connect</h3>
-          <p class="text-zinc-500 text-sm leading-relaxed">Download, sign in, connect Jira. One-time setup — 2 minutes.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-14 h-14 rounded-2xl bg-brand-900/30 border border-brand-700/30 flex items-center justify-center text-brand-400 font-bold text-xl mx-auto mb-5">2</div>
-          <h3 class="text-white font-semibold text-lg mb-2">Track with one hotkey</h3>
-          <p class="text-zinc-500 text-sm leading-relaxed">Ctrl+Shift+Space → type your ticket → hit Start. Timer runs in the tray.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-14 h-14 rounded-2xl bg-brand-900/30 border border-brand-700/30 flex items-center justify-center text-brand-400 font-bold text-xl mx-auto mb-5">3</div>
-          <h3 class="text-white font-semibold text-lg mb-2">Get your EOD in one click</h3>
-          <p class="text-zinc-500 text-sm leading-relaxed">AI generates your standup summary. Copy, paste into Slack. Done for the day.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ TECH STACK ═══ -->
-  <section class="py-20 px-6">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-2xl font-bold mb-3">Built with modern tech</h2>
-      <p class="text-zinc-500 mb-8 text-sm">Fast, native, and secure.</p>
-      <div class="flex flex-wrap items-center justify-center gap-3">
-        <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-lg text-sm">Tauri 2 (Rust)</span>
-        <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-lg text-sm">React 18</span>
-        <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-lg text-sm">TypeScript</span>
-        <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-lg text-sm">Spring Boot 3.4</span>
-        <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-lg text-sm">PostgreSQL</span>
-        <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-lg text-sm">JWT Auth</span>
-        <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-lg text-sm">AES-256-GCM</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ CTA ═══ -->
-  <section id="download" class="py-24 px-6 bg-white/[0.02] border-t border-white/5">
-    <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Ready to track smarter?</h2>
-      <p class="text-zinc-400 mb-8 text-lg">Download FlowTrack and start tracking your time without breaking your flow.</p>
-      <a href="https://github.com/harshit9466/flowtrack-releases/releases/latest"
-         class="inline-block bg-brand-600 hover:bg-brand-500 text-white font-semibold px-10 py-4 rounded-xl text-lg transition-all glow-btn">
-        ⬇ Download Latest Release
+  <footer class="footer">
+    <div class="footer-inner">
+      <a href="#top" class="footer-logo">
+        <div class="footer-logo-icon">⏱</div>
+        <span class="footer-logo-text">FlowTrack</span>
       </a>
-      <p class="mt-4 text-zinc-600 text-sm">Windows 10+ · Auto-updates included</p>
-    </div>
-  </section>
 
-  <!-- ═══ FOOTER ═══ -->
-  <footer class="border-t border-white/5 py-8 px-6">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-      <div class="flex items-center gap-2 text-zinc-600 text-sm">
-        <span>⏱️</span>
-        <span>FlowTrack</span>
-      </div>
-      <div class="text-zinc-600 text-sm">
-        Built by <a href="https://github.com/harshit9466" class="text-zinc-400 hover:text-white transition-colors">Harshit</a>
+      <div class="footer-links">
+        <a href="https://github.com/harshit9466/Flowtrack" target="_blank" rel="noopener">GitHub</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <span>Built by <a href="https://github.com/harshit9466" target="_blank" rel="noopener" class="author-link">Harshit</a></span>
       </div>
     </div>
   </footer>
-
 </body>
 </html>
