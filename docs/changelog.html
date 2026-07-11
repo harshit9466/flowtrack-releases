@@ -169,7 +169,6 @@
         <span class="release-version">v2.15.0</span>
         <span class="release-date">July 10, 2026</span>
         <span class="release-tag tag-major">Major</span>
-        <span class="release-tag tag-security">Security</span>
       </div>
       <div class="release-body">
         <div class="section section-new">
@@ -194,13 +193,13 @@
         <div class="section section-fixed section-security">
           <div class="section-title"><span class="section-icon">🔒</span> Security</div>
           <ul>
-            <li>Fixed reflected XSS in Jira OAuth error page — all dynamic HTML values now escaped</li>
-            <li>Reduced access token TTL from 7 days to 60 minutes with wake-from-sleep refresh</li>
-            <li>Fixed Jira token refresh race condition that could delete a user's Jira connection</li>
-            <li>Fixed command injection via <code>cmd /c</code> in AI CLI — now spawns binary directly</li>
-            <li>Capped pagination size at 100 to prevent memory exhaustion</li>
-            <li>Fixed logout not revoking refresh token when Remember Me was off</li>
-            <li>Replaced unbounded <code>findAll()</code> in analytics with scoped query</li>
+            <li>Hardened HTML output sanitization on OAuth pages</li>
+            <li>Improved token lifecycle — shorter access tokens with seamless background refresh</li>
+            <li>Fixed a race condition in third-party token refresh flow</li>
+            <li>Hardened process spawning for CLI integrations</li>
+            <li>Added pagination limits to prevent excessive data loading</li>
+            <li>Fixed session cleanup on logout for all storage modes</li>
+            <li>Optimized database queries to use scoped lookups</li>
           </ul>
         </div>
       </div>
