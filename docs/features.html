@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features — FlowTrack</title>
+  <meta name="description" content="Explore FlowTrack's features: quick capture, Jira integration, AI summaries, smart nudges, and more.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08080f;
+      --bg-soft: #0d1020;
+      --bg-surface: rgba(15, 23, 42, 0.72);
+      --bg-surface-strong: rgba(17, 24, 39, 0.92);
+      --text-1: #f8fafc;
+      --text-2: #cbd5e1;
+      --text-3: #94a3b8;
+      --border: rgba(148, 163, 184, 0.16);
+      --border-strong: rgba(129, 140, 248, 0.24);
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-soft: rgba(99, 102, 241, 0.16);
+      --success: #34d399;
+      --warning: #fbbf24;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      --max-width: 1160px;
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text-1);
+      background: radial-gradient(circle at top left, rgba(99,102,241,0.18), transparent 30%),
+        radial-gradient(circle at 85% 12%, rgba(129,140,248,0.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(79,70,229,0.12), transparent 34%),
+        var(--bg);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      opacity: 0.16;
+    }
+    a { color: inherit; }
+    .container { width: min(var(--max-width), calc(100% - 40px)); margin: 0 auto; }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 8, 15, 0.78);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+    .nav-inner {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto; min-height: 78px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .nav-logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo-icon {
+      width: 36px; height: 36px; border-radius: 11px;
+      display: inline-flex; align-items: center; justify-content: center; font-size: 18px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.22), rgba(129,140,248,0.08));
+      border: 1px solid rgba(129,140,248,0.24);
+    }
+    .nav-logo-text { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+    .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; padding: 0; margin: 0 0 0 auto; }
+    .nav-links a { text-decoration: none; color: var(--text-3); font-size: 14px; font-weight: 500; transition: color 0.18s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-1); }
+    .nav-links a.active { color: var(--accent-light); }
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      border-radius: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;
+      background: linear-gradient(135deg, var(--accent-light), var(--accent));
+      color: white; border: 1px solid rgba(196,181,253,0.18);
+      box-shadow: 0 20px 40px rgba(79,70,229,0.28), inset 0 1px 0 rgba(255,255,255,0.14);
+      padding: 12px 22px; font-size: 14px;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); }
+
+    /* Hero */
+    .hero { padding: 80px 0 40px; text-align: center; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .hero p { color: var(--text-2); font-size: 1.1rem; max-width: 560px; margin: 0 auto; }
+    .gradient-text {
+      background: linear-gradient(135deg, #c4b5fd 0%, #818cf8 45%, #6366f1 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+
+    /* Feature sections */
+    .feature-section { padding: 80px 0; }
+    .feature-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .feature-row.reverse .feature-text { order: 2; }
+    .feature-row.reverse .feature-mockup { order: 1; }
+    .feature-text h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+    .feature-text p { color: var(--text-2); font-size: 0.95rem; line-height: 1.7; }
+    .feature-tag {
+      display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--accent-light); margin-bottom: 12px;
+    }
+
+    /* Mockup base */
+    .mockup {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .mockup::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(129,140,248,0.3), transparent);
+    }
+    .mockup-bar {
+      display: flex; gap: 6px; margin-bottom: 14px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mockup-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(148,163,184,0.2); }
+
+    /* Quick Capture mockup */
+    .qc-input {
+      background: var(--bg-soft); border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm); padding: 10px 14px; color: var(--text-1);
+      font-size: 13px; width: 100%; margin-bottom: 8px;
+    }
+    .qc-dropdown {
+      background: var(--bg-surface-strong); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); overflow: hidden;
+    }
+    .qc-item { padding: 8px 14px; font-size: 12px; color: var(--text-2); border-bottom: 1px solid var(--border); }
+    .qc-item.active { background: var(--accent-soft); color: var(--text-1); }
+
+    /* Dashboard mockup */
+    .dash-stats { display: flex; gap: 12px; margin-bottom: 14px; }
+    .dash-stat {
+      flex: 1; background: var(--bg-soft); border-radius: var(--radius-sm);
+      padding: 10px; text-align: center; border: 1px solid var(--border);
+    }
+    .dash-stat-val { font-size: 16px; font-weight: 700; color: var(--text-1); }
+    .dash-stat-label { font-size: 10px; color: var(--text-3); text-transform: uppercase; }
+    .timer-card {
+      background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 10px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .timer-title { font-size: 12px; color: var(--text-2); }
+    .timer-badge {
+      font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 600;
+      background: rgba(52,211,153,0.15); color: var(--success);
+    }
+    .timer-badge.stopped { background: rgba(148,163,184,0.1); color: var(--text-3); }
+
+    /* Jira mockup */
+    .jira-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .jira-sync-btn {
+      font-size: 11px; padding: 5px 10px; border-radius: 6px;
+      background: var(--accent-soft); color: var(--accent-light); font-weight: 600;
+    }
+    .jira-ticket {
+      display: flex; align-items: center; gap: 10px; padding: 8px 0;
+      border-bottom: 1px solid var(--border); font-size: 12px;
+    }
+    .jira-key { color: var(--accent-light); font-weight: 600; min-width: 70px; }
+    .jira-title { color: var(--text-2); flex: 1; }
+    .jira-worklog { font-size: 10px; color: var(--success); }
+
+    /* AI mockup */
+    .ai-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .ai-model {
+      font-size: 11px; padding: 4px 10px; border-radius: 6px;
+      background: var(--bg-soft); border: 1px solid var(--border); color: var(--text-3);
+    }
+    .ai-summary { font-size: 12px; color: var(--text-2); }
+    .ai-bullet { padding: 4px 0; padding-left: 14px; position: relative; }
+    .ai-bullet::before { content: '•'; position: absolute; left: 0; color: var(--accent-light); }
+
+    /* Nudge mockup */
+    .nudge-popup {
+      background: var(--bg-surface-strong); border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg); padding: 20px; text-align: center;
+      max-width: 280px; margin: 0 auto;
+    }
+    .nudge-icon { font-size: 28px; margin-bottom: 8px; }
+    .nudge-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .nudge-desc { font-size: 12px; color: var(--text-3); margin-bottom: 14px; }
+    .nudge-btns { display: flex; gap: 8px; justify-content: center; }
+    .nudge-btn {
+      font-size: 11px; padding: 7px 14px; border-radius: 8px; font-weight: 600;
+    }
+    .nudge-btn.primary { background: var(--accent); color: white; }
+    .nudge-btn.secondary { background: rgba(255,255,255,0.05); color: var(--text-2); border: 1px solid var(--border); }
+
+    /* Tray mockup */
+    .tray-menu {
+      background: var(--bg-surface-strong); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 6px; max-width: 240px; margin: 0 auto;
+    }
+    .tray-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 12px; border-radius: 8px; font-size: 12px; color: var(--text-2);
+    }
+    .tray-item:hover { background: rgba(255,255,255,0.03); }
+    .tray-time { color: var(--success); font-weight: 600; font-size: 11px; }
+    .tray-sep { height: 1px; background: var(--border); margin: 4px 8px; }
+    .tray-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); margin-right: 8px; display: inline-block; }
+
+    /* Task grouping mockup */
+    .task-group { margin-bottom: 10px; }
+    .task-group-header {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+      background: var(--accent-soft); border-radius: var(--radius-sm);
+      font-size: 12px; font-weight: 600; color: var(--text-1); cursor: pointer;
+    }
+    .task-group-arrow { font-size: 10px; color: var(--text-3); }
+    .task-group-time { margin-left: auto; color: var(--accent-light); font-size: 11px; }
+    .task-session {
+      padding: 6px 12px 6px 28px; font-size: 11px; color: var(--text-3);
+      border-left: 2px solid var(--border); margin-left: 16px;
+    }
+
+    /* CTA */
+    .cta-section { padding: 80px 0; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+    .cta-section p { color: var(--text-2); margin-bottom: 28px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .feature-row { grid-template-columns: 1fr; gap: 32px; }
+      .feature-row.reverse .feature-text { order: 1; }
+      .feature-row.reverse .feature-mockup { order: 2; }
+      .nav-links { display: none; }
+      .hero h1 { font-size: 1.8rem; }
+      .dash-stats { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="FlowTrack home">
+        <div class="nav-logo-icon">⏱</div>
+        <span class="nav-logo-text">FlowTrack™</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html" class="active">Features</a></li>
+        <li><a href="changelog.html">Changelog</a></li>
+        <li><a href="https://github.com/harshit9466/Flowtrack" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <a href="https://github.com/harshit9466/flowtrack-releases/releases/latest" class="btn-primary" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+        Download
+      </a>
+    </div>
+  </nav>
+
+  <section class="hero container">
+    <h1>Every feature, <span class="gradient-text">designed for flow</span></h1>
+    <p>Explore how FlowTrack keeps you in the zone — from instant capture to intelligent summaries.</p>
+  </section>
+
+  <!-- 1. Quick Capture -->
+  <section class="feature-section container">
+    <div class="feature-row">
+      <div class="feature-text">
+        <span class="feature-tag">Instant Access</span>
+        <h2>Quick Capture</h2>
+        <p>Press <kbd style="background:var(--bg-soft);padding:2px 6px;border-radius:4px;font-size:12px;border:1px solid var(--border)">Ctrl+Shift+Space</kbd> anywhere to pop up a frameless capture window. Start typing a ticket number and autocomplete fills in the rest. One keystroke to start tracking.</p>
+      </div>
+      <div class="feature-mockup">
+        <div class="mockup" style="max-width:320px;margin-left:auto;">
+          <div class="qc-input">FT-24 ▾ Implement user onboar…</div>
+          <div class="qc-dropdown">
+            <div class="qc-item active">FT-247 — Implement user onboarding flow</div>
+            <div class="qc-item">FT-241 — Update API rate limits</div>
+            <div class="qc-item">FT-240 — Fix dashboard render bug</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Dashboard -->
+  <section class="feature-section container">
+    <div class="feature-row reverse">
+      <div class="feature-text">
+        <span class="feature-tag">At a Glance</span>
+        <h2>Dashboard</h2>
+        <p>See your day unfold with live timer cards, daily totals, session counts, and your current streak. Everything updates in real-time without constant polling.</p>
+      </div>
+      <div class="feature-mockup">
+        <div class="mockup">
+          <div class="mockup-bar"><div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div></div>
+          <div class="dash-stats">
+            <div class="dash-stat"><div class="dash-stat-val">7:31</div><div class="dash-stat-label">Tracked</div></div>
+            <div class="dash-stat"><div class="dash-stat-val">8</div><div class="dash-stat-label">Sessions</div></div>
+            <div class="dash-stat"><div class="dash-stat-val">🔥 3</div><div class="dash-stat-label">Day Streak</div></div>
+          </div>
+          <div class="timer-card"><span class="timer-title">FT-247 Onboarding flow</span><span class="timer-badge">1:24:03</span></div>
+          <div class="timer-card"><span class="timer-title">FT-189 API refactor</span><span class="timer-badge stopped">45m</span></div>
+          <div class="timer-card"><span class="timer-title">Sprint planning</span><span class="timer-badge stopped">30m</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Jira Integration -->
+  <section class="feature-section container">
+    <div class="feature-row">
+      <div class="feature-text">
+        <span class="feature-tag">Seamless Sync</span>
+        <h2>Jira Integration</h2>
+        <p>Connect via OAuth PKCE, sync your sprint backlog, and auto-push worklogs when you stop a timer. No more manual time entry in Jira — FlowTrack handles it.</p>
+      </div>
+      <div class="feature-mockup">
+        <div class="mockup">
+          <div class="jira-header">
+            <span style="font-size:13px;font-weight:600;">Sprint 14 — Active</span>
+            <span class="jira-sync-btn">↻ Sync</span>
+          </div>
+          <div class="jira-ticket"><span class="jira-key">FT-247</span><span class="jira-title">Implement onboarding flow</span><span class="jira-worklog">✓ logged</span></div>
+          <div class="jira-ticket"><span class="jira-key">FT-241</span><span class="jira-title">Update API rate limits</span><span class="jira-worklog">✓ logged</span></div>
+          <div class="jira-ticket"><span class="jira-key">FT-238</span><span class="jira-title">Add export to CSV</span><span style="font-size:10px;color:var(--text-3)">—</span></div>
+          <div class="jira-ticket" style="border:none;"><span class="jira-key">FT-235</span><span class="jira-title">Fix timezone offset bug</span><span class="jira-worklog">✓ logged</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. AI Assistant -->
+  <section class="feature-section container">
+    <div class="feature-row reverse">
+      <div class="feature-text">
+        <span class="feature-tag">Intelligent</span>
+        <h2>AI Assistant</h2>
+        <p>Generate end-of-day summaries, morning plans, and task descriptions using your preferred AI model. Supports Claude, GPT, Gemini, and local Ollama models.</p>
+      </div>
+      <div class="feature-mockup">
+        <div class="mockup">
+          <div class="ai-header">
+            <span style="font-size:13px;font-weight:600;">EOD Summary</span>
+            <span class="ai-model">Claude 3.5 ▾</span>
+          </div>
+          <div class="ai-summary">
+            <div class="ai-bullet">Completed onboarding flow implementation (2h 15m)</div>
+            <div class="ai-bullet">Fixed 3 API rate limit edge cases (45m)</div>
+            <div class="ai-bullet">Sprint planning and backlog grooming (30m)</div>
+            <div class="ai-bullet">Code review for PR #142 — auth module (25m)</div>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--text-3);">Total: 7h 31m across 8 sessions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Smart Nudges -->
+  <section class="feature-section container">
+    <div class="feature-row">
+      <div class="feature-text">
+        <span class="feature-tag">Context-Aware</span>
+        <h2>Smart Nudges</h2>
+        <p>FlowTrack detects when you return from idle, when you're working without a timer, or when a meeting starts — and nudges you with the right action at the right time.</p>
+      </div>
+      <div class="feature-mockup">
+        <div class="nudge-popup">
+          <div class="nudge-icon">👋</div>
+          <div class="nudge-title">You were away for 12 minutes</div>
+          <div class="nudge-desc">What would you like to do with that time?</div>
+          <div class="nudge-btns">
+            <span class="nudge-btn primary">Log as task</span>
+            <span class="nudge-btn secondary">Count as break</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. System Tray -->
+  <section class="feature-section container">
+    <div class="feature-row reverse">
+      <div class="feature-text">
+        <span class="feature-tag">Always There</span>
+        <h2>System Tray</h2>
+        <p>Your active timers live in the system tray with elapsed times updating every 15 seconds. Stop any timer from the menu without switching windows.</p>
+      </div>
+      <div class="feature-mockup">
+        <div class="tray-menu">
+          <div class="tray-item"><span><span class="tray-dot"></span>FT-247 Onboarding</span><span class="tray-time">1:24:03</span></div>
+          <div class="tray-item"><span><span class="tray-dot"></span>Sprint planning</span><span class="tray-time">0:30:11</span></div>
+          <div class="tray-sep"></div>
+          <div class="tray-item"><span>⏹ Stop FT-247</span></div>
+          <div class="tray-item"><span>⏹ Stop Sprint planning</span></div>
+          <div class="tray-sep"></div>
+          <div class="tray-item"><span>📋 Open Dashboard</span></div>
+          <div class="tray-item"><span>🚪 Quit FlowTrack</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Task Grouping -->
+  <section class="feature-section container">
+    <div class="feature-row">
+      <div class="feature-text">
+        <span class="feature-tag">Organized</span>
+        <h2>Task Grouping</h2>
+        <p>Sessions are automatically grouped under tasks by ticket number. Expand to see individual session history, or collapse for a clean summary with total time.</p>
+      </div>
+      <div class="feature-mockup">
+        <div class="mockup">
+          <div class="task-group">
+            <div class="task-group-header"><span class="task-group-arrow">▼</span> FT-247 Implement onboarding flow <span class="task-group-time">3h 45m</span></div>
+            <div class="task-session">Today 9:00–11:15 — 2h 15m</div>
+            <div class="task-session">Yesterday 14:00–15:30 — 1h 30m</div>
+          </div>
+          <div class="task-group">
+            <div class="task-group-header"><span class="task-group-arrow">▶</span> FT-241 Update API rate limits <span class="task-group-time">1h 20m</span></div>
+          </div>
+          <div class="task-group">
+            <div class="task-group-header"><span class="task-group-arrow">▶</span> Sprint planning (ad-hoc) <span class="task-group-time">30m</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section container">
+    <h2>Ready to <span class="gradient-text">stay in flow</span>?</h2>
+    <p>Download FlowTrack and start tracking in under a minute.</p>
+    <a href="https://github.com/harshit9466/flowtrack-releases/releases/latest" class="btn-primary" target="_blank" rel="noopener" style="padding:14px 32px;font-size:16px;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+      Download for Windows
+    </a>
+  </section>
+
+  <div style="padding:40px 0;text-align:center;color:var(--text-3);font-size:12px;border-top:1px solid var(--border);">
+    © 2025 FlowTrack. Built for developers who value their time.
+  </div>
+</body>
+</html>
