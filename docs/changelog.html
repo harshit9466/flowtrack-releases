@@ -163,6 +163,54 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.20.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.20.0</span>
+        <span class="release-date">August 2, 2026</span>
+        <span class="release-tag tag-major">Major</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Delete your account — new option in Settings → Profile (password-confirmed); your data is fully removed within 30 days</li>
+            <li>After-hours timer check — a friendly popup now asks whether you're still working if a timer's running well past your work hours, lets you set the real end time, or stops it. Nothing happens silently anymore. Toggle it off in Settings → Nudges if you'd rather not be asked.</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Login and token refresh now time out instead of hanging indefinitely on a bad connection</li>
+            <li>Timers left running are parked for you to confirm the real end time, instead of guessing one</li>
+            <li>Failed Jira worklog pushes now show up instead of silently disappearing</li>
+            <li>Night-shift and overnight work schedules no longer disable reminders entirely</li>
+            <li>Reduced backend server load, cutting hosting cost further</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>App could fail to start if the Quick Capture shortcut was already claimed by another app</li>
+            <li>Quick Capture and other popup windows could incorrectly show "Not logged in" right after signing in</li>
+            <li>The "welcome back" idle popup could silently fail to appear</li>
+            <li>Clicking a notification didn't always take you anywhere</li>
+            <li>Excluding a session from totals wasn't always reflected in the task's total time</li>
+            <li>Break time wasn't deducted correctly for sessions crossing midnight</li>
+            <li>Deleting a task could unintentionally erase its session history</li>
+          </ul>
+        </div>
+        <div class="section section-fixed section-security">
+          <div class="section-title"><span class="section-icon">🔒</span> Security</div>
+          <ul>
+            <li>Hardened login and registration against automated abuse</li>
+            <li>Set an explicit, restrictive content security policy for the desktop app</li>
+            <li>Added a sane limit to analytics date ranges to prevent excessive data loads</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.19.0 -->
     <div class="release">
       <div class="release-header">
