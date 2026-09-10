@@ -2,131 +2,100 @@
 
 # ⏱ FlowTrack
 
-### AI-Powered Desktop Time Tracker for Engineers
+**A Windows desktop time tracker that logs to Jira for you.**
 
-*Track your work effortlessly. Jira integration. Smart nudges. Auto meeting detection.*
+One hotkey to start a timer · sprint-ticket autocomplete · meeting detection ·
+worklogs pushed to Jira when you stop.
 
-[![Latest Release](https://img.shields.io/github/v/release/harshit9466/flowtrack-releases?style=flat-square&color=5C6BC0)](https://github.com/harshit9466/flowtrack-releases/releases/latest)
-[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue?style=flat-square)](https://github.com/harshit9466/flowtrack-releases/releases/latest)
+[![Latest release](https://img.shields.io/github/v/release/harshit9466/flowtrack-releases?style=flat-square&color=6366f1&label=latest)](https://github.com/harshit9466/flowtrack-releases/releases/latest)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-1f2937?style=flat-square)](https://github.com/harshit9466/flowtrack-releases/releases/latest)
+[![Price](https://img.shields.io/badge/price-free-16a34a?style=flat-square)](https://github.com/harshit9466/flowtrack-releases/releases/latest)
 
----
+[**⬇ Download**](https://github.com/harshit9466/flowtrack-releases/releases/latest) ·
+[**flowtrack.space**](https://flowtrack.space) ·
+[Features](https://flowtrack.space/features.html) ·
+[Changelog](https://flowtrack.space/changelog.html)
 
-[**📥 Download Latest**](https://github.com/harshit9466/flowtrack-releases/releases/latest) · [Features](#features) · [Install](#installation) · [How It Works](#how-it-works)
+<br>
+
+<img src="docs/og.png" alt="FlowTrack — the time tracker that logs to Jira for you" width="720">
 
 </div>
 
 ---
 
-## Features
-
-### ⏱ Smart Time Tracking
-- **Quick Capture** — Start timers instantly with `Ctrl+Shift+Space`
-- **Multiple concurrent timers** — work on several tasks at once
-- **System tray** — see active timers without opening the app
-- **Auto-stop at end of day** — never leave a timer running overnight
-
-### 🔗 Jira Integration
-- **OAuth 2.0 connection** — secure, no password stored
-- **Ticket autocomplete** — search and link as you type
-- **Auto worklog push** — time logged to Jira automatically on timer stop
-- **Sprint sync** — import your active tickets
-- **Create tickets from tasks** — turn ad-hoc work into Jira issues
-
-### 🤖 AI Assistant
-- **Work description generation** — AI writes your log entry from ticket context
-- **EOD Summary** — one-click standup bullet points
-- **Morning Plan** — plan your day from yesterday's work + open tickets
-- **6 providers** — Claude, Gemini, OpenAI, Ollama, Claude CLI, Gemini CLI
-
-### 💤 Smart Detection
-- **Idle detection** — prompts you to log time when you return from being away
-- **Meeting detection** — auto-detects Teams, Zoom, Google Meet calls via audio API
-- **Activity tracking** — nudges when you're working but forgot to start a timer
-- **Break tracking** — separate break time from work time
-
-### 📊 Dashboard
-- **Daily stats** — tracked time, sessions, streak, goal progress
-- **Search & filter** — find any past session by date, ticket, text
-- **Task grouping** — sessions grouped by ticket or title
-- **Compact UI** — everything visible without scrolling
-
-### 🔄 Auto Updates
-- **Silent auto-update** — new versions install automatically
-- **Progress bar** — see download progress when updating manually
-- **Configurable** — turn off auto-update if you prefer manual control
+This repository hosts the **signed Windows installers** and the **auto-update
+manifest** (`latest.json`). The application source is private; issues and feedback
+are welcome here or in the app's built-in feedback form.
 
 ---
 
-## Installation
+## What it does
 
-### System Requirements
-- Windows 10 or Windows 11
-- 100 MB disk space
-- Internet connection (for backend sync)
+**Quick Capture** — Press `Ctrl+Shift+Space` from any app, type part of a ticket
+number, hit Enter. The timer's running. No window to find, no mouse.
 
-### Download & Install
+**Jira integration** — Connect with OAuth (no API token to generate). Sprint
+tickets autocomplete as you type; worklogs push back to Jira when you stop a
+timer. Editing a session's time updates the existing worklog rather than adding a
+duplicate.
 
-1. **Download** the latest MSI from [Releases](https://github.com/harshit9466/flowtrack-releases/releases/latest)
-2. **Run** `FlowTrack_x.x.x_x64_en-US.msi`
-3. **Launch** FlowTrack from Start Menu or system tray
-4. **Create account** or sign in
+**Meeting detection** — For Microsoft Teams, FlowTrack reads meeting state from
+the local API Teams exposes (only if you enable Teams' "third-party app API
+access"). For Zoom, Google Meet, Webex, and Slack huddles it checks window titles
+and process names. **No audio is recorded and no call content is read** — this
+runs entirely on your machine.
 
-That's it. Future updates install automatically.
+**Smart nudges** — Reminders for the things people forget: returning from idle,
+a timer left running past your work hours, working with no timer, the
+end-of-day wrap-up. Every nudge type can be turned off.
 
----
+**AI assistant (optional)** — Draft session descriptions, end-of-day summaries,
+and morning plans from real session data. Six providers: the Claude and OpenAI
+APIs, the Gemini API, Claude Code, Antigravity, and a local Ollama model if
+you'd rather nothing leave your machine.
 
-## How It Works
+**Dashboard & analytics** — Daily totals, session counts, streaks, per-ticket
+time, focus vs. meeting load, and CSV export. Sessions group under tasks by
+ticket number.
 
-FlowTrack runs as a desktop app with a lightweight system tray icon. Your data syncs to a secure cloud backend.
-
-```
-Desktop App (Windows)
-   ├── Quick Capture overlay (Ctrl+Shift+Space)
-   ├── Dashboard with stats + sessions
-   ├── System tray with active timers
-   ├── Smart detection (idle, meetings, activity)
-   └── Auto-updater
-         │
-         ▼
-Cloud Backend
-   ├── Session & task storage
-   ├── Jira OAuth + API integration
-   ├── AI provider routing
-   ├── Smart nudge scheduler
-   └── User settings sync
-```
+**Auto-updates** — New versions install themselves. Turn it off in settings if
+you'd rather update manually.
 
 ---
 
-## Settings
+## Install
 
-Configure in **Settings** (gear icon):
+1. Download the latest `.msi` (or `-setup.exe`) from
+   [Releases](https://github.com/harshit9466/flowtrack-releases/releases/latest).
+2. Run the installer.
+3. Launch FlowTrack from the Start menu — it lives in the system tray.
+4. Create an account, then connect Jira from Settings → Integrations.
 
-| Tab | What |
-|-----|------|
-| **Profile** | Display name, timezone, work hours, daily goal, time/date format |
-| **Integrations** | Jira OAuth connect, sprint sync, worklog toggle |
-| **AI** | Provider selection, model, API key |
-| **Nudge** | Morning plan, idle reminder, EOD summary, meeting detection, activity tracking |
+**Requirements:** Windows 10 or 11, ~100 MB disk, an internet connection for sync.
+Future updates install automatically.
 
 ---
 
-## Privacy & Security
+## Privacy
 
-- 🔒 All data encrypted in transit (HTTPS) and at rest (AES-256-GCM)
-- 🔑 Jira tokens encrypted, never stored in plain text
-- 👁 Activity tracking is LOCAL only — window titles never leave your machine
-- 🚫 No telemetry, no analytics, no tracking
-- 📱 Your data belongs to you
+- All API traffic is HTTPS; data at rest is encrypted with AES-256-GCM.
+- Jira tokens and AI API keys are encrypted, never stored in plain text.
+- Activity/window-title tracking is **local only** — it never leaves your machine.
+- No telemetry, no analytics, no ad tracking.
+- You can export your data (CSV) or delete your account (Settings → Profile) at
+  any time; deletion removes everything within 30 days.
+
+Full policy: [flowtrack.space/privacy.html](https://flowtrack.space/privacy.html)
 
 ---
 
 ## Support
 
-Having issues? [Open an issue](https://github.com/harshit9466/flowtrack-releases/issues) on this repository.
-
----
+Open an [issue](https://github.com/harshit9466/flowtrack-releases/issues), or use
+the feedback form inside the app (Settings → Feedback).
 
 <div align="center">
-<sub>Built with Tauri + React + Spring Boot • © 2026 FlowTrack</sub>
+<br>
+<sub>Built with Tauri 2 (Rust) · React · Spring Boot · PostgreSQL — by <a href="https://github.com/harshit9466">Harshit</a></sub>
 </div>
