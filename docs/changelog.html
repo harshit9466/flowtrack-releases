@@ -163,6 +163,36 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.20.2 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.20.2</span>
+        <span class="release-date">September 11, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Sign in and sign up no longer fail on the first attempt when the server is waking from idle — the app waits and tells you it's starting up</li>
+            <li>Starting a timer just after midnight no longer fails with "Validation failed" — a server-side timezone bug that rejected any start time the server's clock considered "tomorrow"</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Errors when starting a timer or signing in now show the specific reason instead of a generic message</li>
+          </ul>
+        </div>
+        <div class="section section-fixed section-security">
+          <div class="section-title"><span class="section-icon">🔒</span> Security</div>
+          <ul>
+            <li>A login session is now fully revoked if its refresh token is seen being reused</li>
+            <li>Login and sign-up rate limits are now enforced reliably across server restarts</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.20.1 -->
     <div class="release">
       <div class="release-header">
@@ -190,8 +220,8 @@
         <div class="section section-new">
           <div class="section-title"><span class="section-icon">🆕</span> New</div>
           <ul>
-            <li>Delete your account — new option in Settings → Profile (password-confirmed); your data is fully removed within 30 days</li>
-            <li>After-hours timer check — a friendly popup now asks whether you're still working if a timer's running well past your work hours, lets you set the real end time, or stops it. Nothing happens silently anymore. Toggle it off in Settings → Nudges if you'd rather not be asked.</li>
+            <li><strong>Delete your account</strong> — new option in Settings → Profile (password-confirmed); your data is fully removed within 30 days</li>
+            <li><strong>After-hours timer check</strong> — if a timer's still running well past your work hours, a popup asks whether you're still working, lets you set the real end time, or stops it. Toggle it off in Settings → Nudges.</li>
           </ul>
         </div>
         <div class="section section-improved">
@@ -222,6 +252,31 @@
             <li>Hardened login and registration against automated abuse</li>
             <li>Set an explicit, restrictive content security policy for the desktop app</li>
             <li>Added a sane limit to analytics date ranges to prevent excessive data loads</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.19.2 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.19.2</span>
+        <span class="release-date">July 31, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Random logouts — a background token-refresh race across windows could invalidate a valid session and reset "Remember Me" along with it</li>
+            <li>Meeting-ended popup occasionally showing blank instead of the resume options</li>
+            <li>Jira ticket description defaulting to the wrong text when creating a new ticket from a task</li>
+            <li>Nudges (morning plan, EOD, etc.) could repeat later the same day after a background token refresh</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Quick Capture and other popups now show a "Log In" button when signed out, instead of a dead end</li>
           </ul>
         </div>
       </div>
