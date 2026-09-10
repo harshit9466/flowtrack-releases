@@ -1,0 +1,275 @@
+/* FlowTrack — shared design system.
+   One source of truth for tokens, layout, nav, buttons, footer.
+   Page-specific rules live in each page's inline <style>. */
+
+:root {
+  --bg: #08080f;
+  --bg-soft: #0d1020;
+  --bg-surface: #10131f;
+  --bg-surface-strong: #131826;
+  --text-1: #f8fafc;
+  --text-2: #cbd5e1;
+  --text-3: #94a3b8;
+  --border: rgba(148, 163, 184, 0.16);
+  --border-strong: rgba(129, 140, 248, 0.24);
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-soft: rgba(99, 102, 241, 0.16);
+  --success: #34d399;
+  --warning: #fbbf24;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+  --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.32);
+  --max-width: 1160px;
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-1);
+  background:
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.16), transparent 30%),
+    radial-gradient(circle at 85% 12%, rgba(129, 140, 248, 0.13), transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(79, 70, 229, 0.10), transparent 34%),
+    var(--bg);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a { color: inherit; }
+img { max-width: 100%; }
+code, kbd { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; }
+
+.container {
+  width: min(var(--max-width), calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #c4b5fd 0%, #818cf8 45%, #6366f1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.label-pill,
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(129, 140, 248, 0.2);
+  background: rgba(17, 20, 32, 0.9);
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pulse-dot,
+.tray-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.45);
+}
+
+/* ── Nav ─────────────────────────────────────────────
+   Opaque, no backdrop-filter. A blurred sticky bar re-samples the
+   full-width strip behind it every scroll frame — the main reason the
+   pages felt janky on desktop but fine on a narrow phone viewport. */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(8, 8, 15, 0.94);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.09);
+}
+
+.nav-inner {
+  width: min(var(--max-width), calc(100% - 40px));
+  margin: 0 auto;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.nav-logo,
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.nav-logo-icon,
+.footer-logo-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.22), rgba(129, 140, 248, 0.08));
+  border: 1px solid rgba(129, 140, 248, 0.24);
+}
+
+.nav-logo-text {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 auto;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-3);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.18s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active,
+.footer-links a:hover { color: var(--text-1); }
+.nav-links a.active { color: var(--accent-light); }
+
+/* ── Buttons ─────────────────────────────────────────── */
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  white-space: nowrap;
+  padding: 12px 22px;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-light), var(--accent));
+  color: #fff;
+  border: 1px solid rgba(196, 181, 253, 0.18);
+  box-shadow: 0 14px 30px rgba(79, 70, 229, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.btn-secondary {
+  color: var(--text-1);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover { transform: translateY(-2px); }
+
+.btn-lg {
+  padding: 15px 28px;
+  font-size: 15px;
+  border-radius: 16px;
+}
+
+kbd {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-1);
+  font-size: 12px;
+}
+
+/* ── Footer ─────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+  padding: 28px 0 34px;
+  margin-top: 40px;
+}
+
+.footer-inner {
+  width: min(var(--max-width), calc(100% - 40px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.footer-logo-text { color: var(--text-3); font-size: 14px; font-weight: 600; }
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  color: var(--text-3);
+  font-size: 14px;
+}
+
+.footer-links a { text-decoration: none; color: var(--text-3); transition: color 0.18s ease; }
+.author-link { color: var(--text-2) !important; }
+
+/* ── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.3); border-radius: 999px; }
+
+/* ── Motion ─────────────────────────────────────────
+   Entrance fades and the "live" pulse only run when the visitor
+   hasn't asked their OS to reduce motion. The reduce block below also
+   guarantees content is visible if animations never fire. */
+@media (prefers-reduced-motion: no-preference) {
+  .pulse-dot,
+  .tray-dot { animation: pulseDot 1.9s ease-in-out infinite; }
+
+  .a1 { opacity: 0; animation: fadeUp 0.6s ease-out 0.05s forwards; }
+  .a2 { opacity: 0; animation: fadeUp 0.6s ease-out 0.16s forwards; }
+  .a3 { opacity: 0; animation: fadeUp 0.6s ease-out 0.27s forwards; }
+  .a4 { opacity: 0; animation: fadeUp 0.6s ease-out 0.38s forwards; }
+  .a5 { opacity: 0; animation: fadeUp 0.6s ease-out 0.5s forwards; }
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.86); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .a1, .a2, .a3, .a4, .a5 { opacity: 1 !important; }
+}

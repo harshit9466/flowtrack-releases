@@ -4,85 +4,53 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Changelog — FlowTrack</title>
-  <meta name="description" content="FlowTrack release history — see what's new, improved, and fixed in each version.">
+  <meta name="description" content="FlowTrack release history — what's new, improved, fixed, and hardened in each version.">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="canonical" href="https://flowtrack.space/changelog.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="FlowTrack">
+  <meta property="og:title" content="Changelog — FlowTrack">
+  <meta property="og:description" content="What's new, improved, fixed, and hardened in each FlowTrack release.">
+  <meta property="og:url" content="https://flowtrack.space/changelog.html">
+  <meta property="og:image" content="https://flowtrack.space/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Changelog — FlowTrack">
+  <meta name="twitter:description" content="What's new, improved, fixed, and hardened in each FlowTrack release.">
+  <meta name="twitter:image" content="https://flowtrack.space/og.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
   <style>
-    :root {
-      --bg: #08080f;
-      --bg-soft: #0d1020;
-      --bg-surface: rgba(15, 23, 42, 0.72);
-      --text-1: #f8fafc;
-      --text-2: #cbd5e1;
-      --text-3: #94a3b8;
-      --border: rgba(148, 163, 184, 0.16);
-      --accent: #6366f1;
-      --accent-light: #818cf8;
-      --success: #34d399;
-    }
-    * { box-sizing: border-box; margin: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      color: var(--text-1);
-      background: radial-gradient(circle at top left, rgba(99,102,241,0.12), transparent 30%),
-                  radial-gradient(circle at 85% 12%, rgba(129,140,248,0.10), transparent 28%),
-                  var(--bg);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-    a { color: inherit; }
+    .log { width: min(760px, calc(100% - 40px)); margin: 0 auto; }
 
-    /* Nav */
-    .nav {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(18px);
-      background: rgba(8,8,15,0.78);
-      border-bottom: 1px solid rgba(148,163,184,0.08);
-    }
-    .nav-inner {
-      max-width: 900px; margin: 0 auto; padding: 0 20px;
-      min-height: 64px; display: flex; align-items: center; gap: 20px;
-    }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 16px; }
-    .nav-logo-icon { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 15px; background: linear-gradient(135deg, rgba(99,102,241,0.22), rgba(129,140,248,0.08)); border: 1px solid rgba(129,140,248,0.24); }
-    .nav-links { display: flex; gap: 22px; list-style: none; padding: 0; margin: 0 0 0 auto; }
-    .nav-links a { text-decoration: none; color: var(--text-3); font-size: 13px; font-weight: 500; transition: color 0.18s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--text-1); }
-
-    /* Page */
-    .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
-
-    .page-header {
-      padding: 60px 0 40px;
-      text-align: center;
-    }
-    .page-header h1 {
-      font-size: 36px; font-weight: 800; letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #c4b5fd, #818cf8, #6366f1);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
+    .page-header { padding: 58px 0 40px; text-align: center; }
+    .page-header h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; }
     .page-header p { color: var(--text-3); font-size: 15px; margin-top: 8px; }
 
-    /* Release */
+    /* Solid background + content-visibility: each card was a blurred
+       compositing layer, and a 12-card list re-blurred all of them on scroll. */
     .release {
-      margin-bottom: 40px;
+      margin-bottom: 36px;
       border: 1px solid var(--border);
       border-radius: 16px;
       background: var(--bg-surface);
-      backdrop-filter: blur(12px);
       overflow: hidden;
+      content-visibility: auto;
+      contain-intrinsic-size: auto 320px;
     }
     .release-header {
       padding: 20px 24px;
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
     }
-    .release-version {
-      font-size: 18px; font-weight: 700; color: var(--text-1);
-    }
+    .release-version { font-size: 18px; font-weight: 700; color: var(--text-1); }
     .release-date {
       font-size: 12px; color: var(--text-3); font-weight: 500;
       background: rgba(255,255,255,0.04); border: 1px solid var(--border);
@@ -96,7 +64,6 @@
     .tag-security { background: rgba(248,113,113,0.15); color: #fca5a5; border: 1px solid rgba(248,113,113,0.25); }
 
     .release-body { padding: 20px 24px; }
-
     .section { margin-bottom: 18px; }
     .section:last-child { margin-bottom: 0; }
     .section-title {
@@ -105,7 +72,6 @@
       color: var(--text-2); margin-bottom: 10px;
     }
     .section-icon { font-size: 14px; }
-
     .section ul { list-style: none; padding: 0; }
     .section li {
       padding: 6px 0; font-size: 14px; color: var(--text-2); line-height: 1.7;
@@ -119,47 +85,43 @@
     .section-improved li::before { background: var(--accent-light); }
     .section-fixed li::before { background: #fbbf24; }
     .section-security li::before { background: #f87171; }
-
     .section li code {
       font-family: 'SFMono-Regular', Consolas, monospace;
       font-size: 12px; background: rgba(255,255,255,0.06);
       padding: 2px 6px; border-radius: 4px; color: var(--accent-light);
     }
 
-    /* Footer */
-    .footer {
-      padding: 40px 0; text-align: center; border-top: 1px solid var(--border);
-      margin-top: 40px;
-    }
-    .footer p { font-size: 12px; color: var(--text-3); }
-    .footer a { color: var(--accent-light); text-decoration: none; }
-
     @media (max-width: 640px) {
       .page-header h1 { font-size: 28px; }
       .release-header { padding: 16px 18px; }
       .release-body { padding: 16px 18px; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
-
   <nav class="nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <span class="nav-logo-icon">⏱</span>
-        <span>FlowTrack</span>
+      <a href="index.html" class="nav-logo" aria-label="FlowTrack home">
+        <div class="nav-logo-icon">⏱</div>
+        <span class="nav-logo-text">FlowTrack™</span>
       </a>
       <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
         <li><a href="features.html">Features</a></li>
         <li><a href="changelog.html" class="active">Changelog</a></li>
-        <li><a href="https://github.com/harshit9466/Flowtrack" target="_blank">GitHub</a></li>
+        <li><a href="https://github.com/harshit9466/Flowtrack" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
+      <a href="https://github.com/harshit9466/flowtrack-releases/releases/latest" class="btn-primary" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+        Download
+      </a>
     </div>
   </nav>
 
-  <div class="container">
+  <div class="log">
     <div class="page-header">
-      <h1>Changelog</h1>
+      <h1 class="gradient-text">Changelog</h1>
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
@@ -183,7 +145,7 @@
             <li>Errors when starting a timer or signing in now show the specific reason instead of a generic message</li>
           </ul>
         </div>
-        <div class="section section-fixed section-security">
+        <div class="section section-security">
           <div class="section-title"><span class="section-icon">🔒</span> Security</div>
           <ul>
             <li>A login session is now fully revoked if its refresh token is seen being reused</li>
@@ -246,7 +208,7 @@
             <li>Deleting a task could unintentionally erase its session history</li>
           </ul>
         </div>
-        <div class="section section-fixed section-security">
+        <div class="section section-security">
           <div class="section-title"><span class="section-icon">🔒</span> Security</div>
           <ul>
             <li>Hardened login and registration against automated abuse</li>
@@ -380,7 +342,7 @@
             <li>Updated vite 5 → 8 and plugin-react 4 → 6</li>
           </ul>
         </div>
-        <div class="section section-fixed section-security">
+        <div class="section section-security">
           <div class="section-title"><span class="section-icon">🔒</span> Security</div>
           <ul>
             <li>Hardened HTML output sanitization on OAuth pages</li>
@@ -479,13 +441,21 @@
         </div>
       </div>
     </div>
-
   </div>
 
-  <div class="footer">
-    <p>FlowTrack — Time tracking that fits your flow.</p>
-    <p style="margin-top: 6px;"><a href="index.html">Home</a> · <a href="features.html">Features</a> · <a href="https://github.com/harshit9466/flowtrack-releases/releases" target="_blank">All Releases</a></p>
-  </div>
-
+  <footer class="footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <div class="footer-logo-icon">⏱</div>
+        <span class="footer-logo-text">FlowTrack™</span>
+      </a>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="https://github.com/harshit9466/flowtrack-releases/releases" target="_blank" rel="noopener">All releases</a>
+        <a href="privacy.html">Privacy</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

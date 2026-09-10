@@ -1,98 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy — FlowTrack™</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f14; color: #d1d1d6; line-height: 1.7; }
-        .container { max-width: 720px; margin: 0 auto; padding: 48px 24px; }
-        h1 { color: #fff; font-size: 28px; margin-bottom: 8px; }
-        .subtitle { color: #888; font-size: 14px; margin-bottom: 40px; }
-        h2 { color: #c4b5fd; font-size: 18px; margin-top: 32px; margin-bottom: 12px; }
-        p, li { font-size: 15px; margin-bottom: 12px; }
-        ul { padding-left: 24px; }
-        li { margin-bottom: 6px; }
-        a { color: #818cf8; }
-        .back { display: inline-block; margin-bottom: 24px; color: #818cf8; text-decoration: none; font-size: 14px; }
-        .back:hover { text-decoration: underline; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — FlowTrack</title>
+  <meta name="description" content="What data FlowTrack collects, how it's used, where it's stored, and your rights.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="canonical" href="https://flowtrack.space/privacy.html">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .legal { width: min(760px, calc(100% - 40px)); margin: 0 auto; padding: 56px 0 20px; }
+    .legal h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .legal .updated { color: var(--text-3); font-size: 14px; margin-bottom: 36px; }
+    .legal h2 { color: var(--accent-light); font-size: 18px; font-weight: 700; margin: 34px 0 12px; letter-spacing: -0.01em; }
+    .legal p, .legal li { font-size: 15px; color: var(--text-2); margin-bottom: 12px; line-height: 1.75; }
+    .legal ul { padding-left: 22px; margin-bottom: 12px; }
+    .legal li { margin-bottom: 6px; }
+    .legal strong { color: var(--text-1); }
+    .legal a { color: var(--accent-light); }
+
+    @media (max-width: 640px) { .nav-links { display: none; } }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <a href="/" class="back">← Back to FlowTrack</a>
-        <h1>Privacy Policy</h1>
-        <p class="subtitle">Last updated: June 25, 2026</p>
-
-        <p>FlowTrack™ ("we", "our", "the app") is a desktop time-tracking application built by Harshit Sharma. Your privacy matters to us. This policy explains what data we collect, how we use it, and your rights.</p>
-
-        <h2>1. Data We Collect</h2>
-        <p><strong>Account data:</strong> When you register, we collect your email address, display name, and a hashed password. We never store your password in plain text.</p>
-        <p><strong>Time tracking data:</strong> Task sessions (description, start/end time, ticket numbers, notes) that you create. This is the core data you use the app for.</p>
-        <p><strong>Settings:</strong> Your preferences (timezone, work hours, AI provider configuration, Jira connection).</p>
-        <p><strong>Feedback:</strong> If you submit feedback through the app, we store your message, subject, and optional app version/OS info.</p>
-        <p><strong>We do NOT collect:</strong></p>
-        <ul>
-            <li>Browsing history or web activity</li>
-            <li>Keystrokes or screen content</li>
-            <li>Location data</li>
-            <li>Contacts, files, or personal documents</li>
-            <li>Analytics or telemetry beyond what you explicitly log</li>
-        </ul>
-
-        <h2>2. How We Use Your Data</h2>
-        <ul>
-            <li>To provide the time-tracking service (storing and displaying your sessions)</li>
-            <li>To authenticate your account (JWT tokens)</li>
-            <li>To send transactional emails (verification, password reset, feedback replies)</li>
-            <li>To connect to Jira (if you enable the integration — OAuth tokens are encrypted at rest with AES-256-GCM)</li>
-            <li>To generate AI summaries (if configured — your session data is sent to your chosen AI provider)</li>
-        </ul>
-
-        <h2>3. Desktop App Features</h2>
-        <p>FlowTrack's desktop app includes optional features that run locally on your computer:</p>
-        <ul>
-            <li><strong>Meeting detection:</strong> Checks running processes and window titles to detect meetings (Teams, Zoom, etc.). No audio is recorded. Detection happens entirely on your device.</li>
-            <li><strong>Idle monitoring:</strong> Uses Windows APIs to detect when you're away. No data is sent externally — it only triggers a local prompt.</li>
-            <li><strong>Activity tracking:</strong> Records the foreground application name for nudge purposes. This data stays on your device and is never sent to our servers.</li>
-        </ul>
-
-        <h2>4. Data Storage & Security</h2>
-        <ul>
-            <li>Data is stored in a PostgreSQL database hosted on Railway (cloud infrastructure)</li>
-            <li>All API communication uses HTTPS</li>
-            <li>Passwords are hashed with BCrypt (strength 12)</li>
-            <li>Jira tokens and AI API keys are encrypted at rest using AES-256-GCM</li>
-            <li>JWT access tokens expire after 15 minutes; refresh tokens after 7 days</li>
-        </ul>
-
-        <h2>5. Third-Party Services</h2>
-        <ul>
-            <li><strong>Resend:</strong> Email delivery (verification, password reset, feedback notifications)</li>
-            <li><strong>Jira (Atlassian):</strong> Only if you connect your Jira account via OAuth</li>
-            <li><strong>AI providers:</strong> Only if you configure one (OpenAI, Anthropic, Google, or Ollama). Your session descriptions are sent to generate summaries.</li>
-        </ul>
-        <p>We do not sell, rent, or share your data with any third party for advertising or marketing purposes.</p>
-
-        <h2>6. Your Rights</h2>
-        <ul>
-            <li>You can export your data at any time via the CSV export feature in Analytics</li>
-            <li>You can delete your sessions from within the app</li>
-            <li>You can request full account deletion by contacting us</li>
-        </ul>
-
-        <h2>7. Data Retention</h2>
-        <p>Your data is retained as long as your account is active. If you delete your account, all associated data is permanently removed within 30 days.</p>
-
-        <h2>8. Children's Privacy</h2>
-        <p>FlowTrack is not intended for users under 13. We do not knowingly collect data from children.</p>
-
-        <h2>9. Changes to This Policy</h2>
-        <p>We may update this policy occasionally. Changes will be posted on this page with an updated date. Continued use of the app after changes constitutes acceptance.</p>
-
-        <h2>10. Contact</h2>
-        <p>For privacy questions or data requests, email: <a href="mailto:harshit9466@gmail.com">harshit9466@gmail.com</a></p>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="FlowTrack home">
+        <div class="nav-logo-icon">⏱</div>
+        <span class="nav-logo-text">FlowTrack™</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="changelog.html">Changelog</a></li>
+        <li><a href="https://github.com/harshit9466/Flowtrack" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <a href="https://github.com/harshit9466/flowtrack-releases/releases/latest" class="btn-primary" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+        Download
+      </a>
     </div>
+  </nav>
+
+  <main class="legal">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: September 11, 2026</p>
+
+    <p>FlowTrack™ ("we", "our", "the app") is a desktop time-tracking application built by Harshit Sharma. This policy explains what data we collect, how we use it, and your rights.</p>
+
+    <h2>1. Data we collect</h2>
+    <p><strong>Account data:</strong> When you register, we collect your email address, display name, and a hashed password. We never store your password in plain text.</p>
+    <p><strong>Time-tracking data:</strong> Task sessions (description, start/end time, ticket numbers, notes) that you create. This is the core data you use the app for.</p>
+    <p><strong>Settings:</strong> Your preferences (timezone, work hours, AI provider configuration, Jira connection).</p>
+    <p><strong>Feedback:</strong> If you submit feedback through the app, we store your message, subject, and optional app version / OS info.</p>
+    <p><strong>We do not collect:</strong></p>
+    <ul>
+      <li>Browsing history or web activity</li>
+      <li>Keystrokes or screen content</li>
+      <li>Location data</li>
+      <li>Contacts, files, or personal documents</li>
+      <li>Analytics or telemetry beyond what you explicitly log</li>
+    </ul>
+
+    <h2>2. How we use your data</h2>
+    <ul>
+      <li>To provide the time-tracking service (storing and displaying your sessions)</li>
+      <li>To authenticate your account (JWT tokens)</li>
+      <li>To send transactional emails (verification, password reset, feedback replies)</li>
+      <li>To connect to Jira (if you enable the integration — OAuth tokens are encrypted at rest with AES-256-GCM)</li>
+      <li>To generate AI summaries (if configured — your session data is sent to your chosen AI provider)</li>
+    </ul>
+
+    <h2>3. Desktop app features</h2>
+    <p>FlowTrack's desktop app includes optional features that run locally on your computer:</p>
+    <ul>
+      <li><strong>Meeting detection:</strong> For Microsoft Teams, if you enable Teams' own "third-party app API access" setting, FlowTrack connects to a local API Teams exposes on your machine to read meeting state directly. For Zoom, Google Meet, Webex, and Slack Huddle (and Teams as a fallback), FlowTrack checks running process names and window titles instead. No audio is recorded, and no video or call content is accessed, in either case — detection happens entirely on your device.</li>
+      <li><strong>Idle monitoring:</strong> Uses Windows APIs to detect when you're away. No data is sent externally — it only triggers a local prompt.</li>
+      <li><strong>Activity tracking:</strong> Reads the foreground window's title (to identify which application you're using) for nudge purposes. This data is held in memory only, is used solely to display an app-name summary in the "no timer running" prompt, is never written to disk, and is never sent to our servers.</li>
+    </ul>
+
+    <h2>4. Data storage &amp; security</h2>
+    <ul>
+      <li>The FlowTrack backend application runs on Railway (cloud infrastructure)</li>
+      <li>Your data is stored in a PostgreSQL database hosted separately on Neon (serverless Postgres), in the ap-southeast-1 (Singapore) region</li>
+      <li>All API communication uses HTTPS</li>
+      <li>Passwords are hashed with BCrypt (strength 12)</li>
+      <li>Jira tokens and AI API keys are encrypted at rest using AES-256-GCM</li>
+      <li>JWT access tokens expire after 60 minutes; refresh tokens after 30 days</li>
+    </ul>
+
+    <h2>5. Third-party services</h2>
+    <p>The following providers process data on our behalf as part of running FlowTrack:</p>
+    <ul>
+      <li><strong>Railway:</strong> Hosts the backend application (compute).</li>
+      <li><strong>Neon:</strong> Hosts the PostgreSQL database that stores your account and time-tracking data (ap-southeast-1 / Singapore).</li>
+      <li><strong>Resend:</strong> Email delivery (verification, password reset, feedback notifications).</li>
+    </ul>
+    <p>The following only apply if you choose to enable them:</p>
+    <ul>
+      <li><strong>Jira (Atlassian):</strong> Only if you connect your Jira account via OAuth — used to pull tickets and push worklogs.</li>
+      <li><strong>AI providers — network API:</strong> If you configure OpenAI, Anthropic (Claude API), or Google (Gemini API), your session descriptions are sent over the network to that provider to generate summaries, subject to that provider's own privacy policy.</li>
+      <li><strong>AI providers — local CLI tools:</strong> If you configure Claude Code CLI, Gemini CLI, or Antigravity, FlowTrack instead runs that tool as a local subprocess on your machine and passes it the prompt directly — no network call is made by FlowTrack itself in this case. Any further data handling is governed by the CLI tool you've separately installed and authenticated, not by FlowTrack.</li>
+      <li><strong>Ollama:</strong> Runs as a model you host yourself (typically on your own machine or network) — your session descriptions are sent to whichever Ollama endpoint you've configured, which you control.</li>
+    </ul>
+    <p>We do not sell, rent, or share your data with any third party for advertising or marketing purposes.</p>
+
+    <h2>6. Your rights</h2>
+    <ul>
+      <li>You can export your data at any time via the CSV export feature in Analytics</li>
+      <li>You can delete individual sessions from within the app</li>
+      <li>You can delete your entire account from Settings → Profile (password-confirmed), or by contacting us. All associated data is permanently removed within 30 days.</li>
+    </ul>
+
+    <h2>7. Data retention</h2>
+    <p>Your data is retained as long as your account is active. If you delete your account, all associated data is permanently removed within 30 days.</p>
+
+    <h2>8. Children's privacy</h2>
+    <p>FlowTrack is not intended for users under 13. We do not knowingly collect data from children.</p>
+
+    <h2>9. Changes to this policy</h2>
+    <p>We may update this policy occasionally. Changes will be posted on this page with an updated date. Continued use of the app after changes constitutes acceptance.</p>
+
+    <h2>10. Contact</h2>
+    <p>For privacy questions or data requests, email <a href="mailto:harshit9466@gmail.com">harshit9466@gmail.com</a>.</p>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <div class="footer-logo-icon">⏱</div>
+        <span class="footer-logo-text">FlowTrack™</span>
+      </a>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="https://github.com/harshit9466/Flowtrack" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
