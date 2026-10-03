@@ -125,6 +125,453 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.33.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.33.0</span>
+        <span class="release-date">October 3, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Jira comments on the ticket page. A new <strong>Comments</strong> tab shows the ticket's comments, lets you add one, and lets you edit your own in place. A comment with a mention, an image or a restricted audience opens in Jira to be edited, so nothing in it is lost</li>
+            <li>A <strong>History</strong> tab shows what happened on the ticket — who changed the status, assignee, sprint or estimate, and when — a day at a time</li>
+            <li><strong>Write from my notes</strong>: pick the sessions whose notes to use, say whether the comment is a progress update, ready for review or blocked, and the AI drafts it for you to read and change. Nothing is posted to Jira until you press Post</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>The Jira status menu is quicker: it opens and moves the ticket with fewer waits on Jira, the chip shows the new status the moment you choose a move, and the next moves are ready as soon as Jira answers. If Jira refuses a move, the chip goes back to what it was</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>With a Type, Ticket or Jira-hours filter on, the day line ("1:11 tracked"), each task's sessions and hours, and the "Most time" sort now count only what the filter lets through — they used to show the whole day's or task's totals</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.32.2 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.32.2</span>
+        <span class="release-date">October 3, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Settings → AI lists each provider's current models: Claude Fable 5.1, Opus 5.5 and Sonnet 5.5; Gemini 3.8, 3.7 and 3.6 Flash and Gemini 3.1 Pro; GPT-6 Astra, GPT-6.1 Sol and GPT-6 Luna; and exactly the models your Antigravity CLI offers today. Retired models (Gemini 2.5, o1, GPT-4 Turbo) are gone, and a model you picked earlier that is no longer offered is shown as such instead of being swapped silently</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Ask FlowTrack with the Gemini API answers questions about your work again — it used to fail with "Function call is missing a thought_signature" as soon as it needed your data. The same fix keeps Ask working with the newest Claude models through the Claude API</li>
+            <li>When an AI provider refuses a request, Ask shows the provider's own sentence instead of a cut-off piece of its reply</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.32.1 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.32.1</span>
+        <span class="release-date">October 3, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Filtering or paging the task lists is calmer on a slow connection. The list you were looking at stays on screen, dimmed, until the new one arrives — it no longer empties to "Loading tasks…" — and moving on to another filter stops waiting for the one you left</li>
+            <li>The "waiting" notice now says what is actually known — the connection is slow, or the server is starting up after an update — instead of blaming the server</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.32.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.32.0</span>
+        <span class="release-date">October 3, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>One row for every kind of work. The Today list and All Tasks now draw a session, a task and a meeting the same way: how long and when on the left, what it was in the middle (its name, ticket, kind, and a two-line account of what you did), and where it stands with Jira on the right with ▶ and ⋯. Rows start and end on the same line, so it is easy to see where one stops and the next begins</li>
+            <li>A task you worked on several times today is one row — "› 3 sessions" opens them underneath, in the same columns. A long note no longer stretches a row: click the words to read it in full on the task page</li>
+            <li>Mark as break: ⋯ → Mark as break turns a finished session into a break. If its hours are already in Jira, FlowTrack asks first and takes them out of Jira too; Exclude from total does the same</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>A task reads the same in both panels: ✓ logged, ◐ 2/3 logged or ○ not logged, with "no ticket" and "Meeting" as tags under its name. A group's total counts only the time that counts, like the day total</li>
+            <li>▶ and ⋯ are easier to see on every row, and a group of sessions has its own ▶ and ⋯</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Claude Code and Antigravity are found again after an app update (their folders on your user and machine PATH are searched)</li>
+            <li>The project colour on task rows shows again — the server now sends each task's project</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.31.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.31.0</span>
+        <span class="release-date">September 29, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Ask FlowTrack: press 💬 Ask on the dashboard and ask about your work or tell FlowTrack what to do, in plain words — "what did I do yesterday?", "start a timer on B1PC-812", "log 3–4 pm today as the sprint review". Under each answer you see what it did. Hours go to Jira only when you press Log to Jira under the answer. It uses your AI provider: Claude Code, Claude API, OpenAI, Gemini API or Ollama</li>
+            <li>Your AI apps can use FlowTrack: Claude Code, Codex, VS Code Copilot, Antigravity and Claude Desktop can read your day, start and stop timers, log time, change notes and log hours to Jira. Settings → AI → Let AI apps use FlowTrack gives each app its own key and the exact setup to paste into it, and switches any app off at once</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Logging a session to Jira now refuses what doesn't belong there — a timer still running, a break, an excluded session — and says why</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Claude Code as your AI provider works when Claude Code was installed with npm. EOD summary, Morning Plan and the auto-description used to fail with "claude CLI not found in PATH"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.30.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.30.0</span>
+        <span class="release-date">September 29, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Meetings are detected from your microphone. When Teams, Zoom, Webex, Slack, or a Meet, Teams or Zoom page in your browser uses the microphone for a minute, a meeting timer starts; it stops when the call lets the microphone go. The start and end are the exact moments Windows recorded, so the meeting is right even if FlowTrack notices late or restarts in the middle. Nothing to set up in Teams</li>
+            <li>Settings → Meeting Detection shows what it sees: the meeting going on now, or the last one it recorded</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>One call is one meeting session. It used to be split into several when Teams changed windows or when something else looked like a meeting</li>
+            <li>A meeting timer you started yourself is followed and stopped when the call ends, instead of a second one being started</li>
+            <li>Timers paused for a meeting stop at the moment the meeting began, so that time isn't counted twice</li>
+            <li>Meetings are named after the meeting, not after Teams' own windows like "Sharing control bar"</li>
+            <li>Other apps that use the microphone never start a meeting: OBS recording the call, Discord, dictation tools</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Teams meetings were not being detected at all. Detection depended on a Teams setting and a connection FlowTrack lost every time it restarted</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.29.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.29.0</span>
+        <span class="release-date">September 28, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>"Don't count this time" in the welcome-back prompt. If you left your PC with a timer running, choose it to take that time off the running timer — no break is added. It shows which timers lose how many minutes and asks you to confirm before anything changes. The session's row then shows "−45m away", and "Minutes not counted" in its edit form puts it right if you chose wrongly</li>
+            <li>Editing the note of a session that is already logged in Jira now asks "Update the Jira worklog too?" after saving. "Not now" keeps the note here and leaves the worklog marked — the row shows "Update Jira" and the ticket page "Jira out of date" — so you can update it whenever you choose</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Jira worklogs now start when the work started. Before, Jira dated a worklog by the moment it was sent, so it landed at the wrong time of day. A worklog that is already in Jira is corrected the next time it is updated</li>
+            <li>The running timer's clock — dashboard, Quick Capture, the ticket page and the tray — no longer counts time you took off</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>A timer still running after your work hours was given an end time without asking, and then showed as both ended and running. That no longer happens: only the "timer left running" prompt asks, and nothing changes until you choose</li>
+            <li>"Set end time" in that prompt now really stops a running timer. It used to record the time and leave the timer counting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.28.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.28.0</span>
+        <span class="release-date">September 24, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Change or remove a task's ticket. In All Tasks open a task and choose Change ticket (or ⋯ → Change ticket… on a session in Today's list). All the task's sessions move to the new ticket, a running timer keeps running, and if you already have a task for that ticket the two are merged — you're told before it happens. "Remove the ticket, keep the task" takes the ticket off and keeps everything else. A task whose hours are already logged in Jira can't be moved, because those worklogs stay on their ticket</li>
+            <li>This week (Monday to today) in the dashboard's Filters and in Insights, and Yesterday in Insights</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Quick Capture no longer turns a title typed into the ticket box into a ticket. It asks whether to use the text as the title or clear it</li>
+            <li>A task whose "ticket" is really text typed into the wrong box is shown in amber with a way to fix it. It has no Log hours button and is no longer looked up in Jira</li>
+            <li>A session's ticket is now changed together with its task, not in the session's own edit form</li>
+            <li>The dashboard's date search lists up to 100 sessions and tells you when there are more</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>The "welcome back" prompt no longer appears after a meeting. Sitting through a call without touching the keyboard isn't being away</li>
+            <li>The weekday chart and the time-of-day heatmap in Insights labelled every day one day early — Monday's hours showed under Sunday</li>
+            <li>"This week" and "This month" in the dashboard's Filters actually meant the last 7 and the last 30 days. They are now called that, and "This week" means Monday to today</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.27.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.27.0</span>
+        <span class="release-date">September 24, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>A Yesterday button next to Today on the dashboard. The list and the numbers line switch to yesterday's sessions</li>
+            <li>A sort for the session list — Latest first, Oldest first or Longest first. FlowTrack remembers your choice</li>
+            <li>The new-ticket form can set Team, Sprint and Original estimate. All three are optional</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>The session list starts with whatever is running, then the newest. A task with several sessions shows its running or latest session first</li>
+            <li>The running timers are listed with the one you started last on top — on the dashboard, in Quick Capture and in the tray</li>
+            <li>All Tasks starts with the tasks that are running, then the one you worked on last. Opening a task shows its sessions newest first</li>
+            <li>Resuming a task that was a meeting starts a meeting, so a recurring meeting no longer needs to be marked again each time</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Turning on "This is a meeting" in Quick Capture now also applies when you continue an existing task, not only when you create a new one. The switch turns itself off after each start</li>
+            <li>The "no timer running" reminder could appear while a timer was running, when the timer had been started from Quick Capture. It now checks again before it shows</li>
+            <li>While a day's sessions are loading the list says "Loading…" instead of "No sessions"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.26.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.26.0</span>
+        <span class="release-date">September 23, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Today's numbers fit on one line — tracked time, progress toward your goal, sessions and streak — with the Type, Ticket and Jira hours filters beside them. Click the line to see them as cards again; FlowTrack remembers your choice</li>
+            <li>Every session has a ⋯ menu with its actions spelled out: open the task page, add or edit a note, edit the session, mark it as a meeting, mark the task done, exclude it or delete it</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Descriptions and task titles use the full width of the list instead of leaving an empty column for buttons</li>
+            <li>A long description reads as a title line with quieter text under it, instead of one block of bold text</li>
+            <li>Clicking a task's title, or a session's text, opens its task page. Renaming a task now happens there too</li>
+            <li>A session's time, ticket, meeting tag and Jira status share one line under it, and times no longer show seconds</li>
+            <li>On task cards the time, Continue and Done sit at the end of the line under the title, and "N sessions" opens the sessions right there</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.25.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.25.0</span>
+        <span class="release-date">September 23, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Every task has its own page: the Jira ticket on one side, and on the other every session you worked on it, newest first, with its date, time and duration</li>
+            <li>Read and edit notes and descriptions right where they are, in a roomy Markdown editor with a preview. Unsaved text is kept even if the window closes</li>
+            <li>Each session on a Jira ticket shows whether its hours reached Jira — Logged, Queued or Log failed — with a button to log or retry right there</li>
+            <li>Write your own description for a session to replace the text filled in from the Jira ticket</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Long notes and descriptions in the session lists show a preview with "Read in full" instead of a small box that scrolls inside the list</li>
+            <li>A session whose description was filled in from the Jira ticket shows a one-line title instead of the whole ticket text</li>
+            <li>On the task page, ticket descriptions and notes are set in a reading typeface, so long write-ups are easier to read</li>
+            <li>Code blocks have a Copy button</li>
+            <li>The end-of-day summary and morning plan show formatted text instead of raw Markdown symbols</li>
+            <li>The note prompt after stopping a timer can open the full editor for longer notes</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Creating a Jira ticket from a task now sends its description with formatting (it used to arrive as one flat paragraph, and the field only appeared when Jira required it)</li>
+            <li>Starting a timer on a new Jira ticket from Quick Capture keeps the task's title instead of naming the task after the ticket number</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.24.1 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.24.1</span>
+        <span class="release-date">September 23, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>A long task title (common now that Quick Capture can fill it in from a Jira ticket) could wrap across many lines and push the time and action buttons into the middle of the text on the Dashboard and All Tasks task cards. Titles are now capped at two lines with the buttons pinned to the top</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.24.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.24.0</span>
+        <span class="release-date">September 22, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Typing a Jira ticket number in Quick Capture now fills in the title and description from the ticket automatically</li>
+            <li>Descriptions and notes support Markdown — headings, lists, code, bold/italic and links now render properly instead of showing raw symbols</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>A long description or note now sits in its own scrollable area instead of taking over the whole screen</li>
+            <li>Pasting formatted text into a description or note keeps its line breaks and spacing</li>
+            <li>The Jira worklog comment is now built from your notes (what you actually did), never from text auto-filled from the ticket</li>
+            <li>A note added after stopping a timer now reaches Jira, updating the worklog that was already logged</li>
+            <li>A new Jira ticket created from FlowTrack keeps real formatting (headings, lists, code, links) in its description</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.23.1 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.23.1</span>
+        <span class="release-date">September 20, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>The tray icon no longer contacts the server on its own every 10 minutes. It shows what the app already knows and updates the moment a timer starts, stops or changes, so nothing runs in the background just to check. Its tooltip's elapsed time still refreshes every minute</li>
+            <li>A slow or restarting server is now waited out: requests give it up to 30 seconds (it was 10), and a small "Waiting for the server…" bar appears if a screen has been loading for more than a few seconds — so the first click right after a server update opens normally instead of showing an error</li>
+            <li>Starting or stopping a timer makes fewer requests to the server</li>
+            <li>Windows you left open now refresh when you switch back to them for every screen (before, only the timers, today's summary, tasks and streak did)</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Windows could be signed out unexpectedly, or show "Not logged in" until reloaded: the app has several windows and they all tried to renew your sign-in at the same instant, which the server treats like a stolen session. Now only the main window renews it and the others pick it up</li>
+            <li>A slow or restarting server can no longer sign you out. Only the server actually refusing your sign-in does; before, a renewal that merely timed out while the server was restarting was enough</li>
+            <li>Stopping a timer from the tray icon while the server can't be reached used to do nothing and say nothing, while every window believed it had stopped. It now shows a notification and the timer stays running</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.23.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.23.0</span>
+        <span class="release-date">September 19, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Every task linked to a Jira ticket now shows the ticket's current Jira status right on the task row, coloured by whether it's finished in Jira — so a task you marked Done here but whose ticket is still open no longer hides until you open Jira. Statuses are refreshed only for the tasks on screen, only when they're out of date, in a single request</li>
+            <li>Move a ticket through its Jira workflow from FlowTrack: click the status, then pick the next step. You see exactly the steps your Jira workflow allows at that moment</li>
+            <li>Filter by Type (Tasks / Meetings), Ticket (With ticket / No ticket) and Jira hours (Logged / Not logged) on the Dashboard, All Tasks and Reports — combine them freely, e.g. "With ticket + Not logged" is what still needs to be pushed to Jira. Report exports follow the same filters</li>
+            <li>Creating a Jira ticket now prefills Planned Start Date (the first day you worked on the task) and Due date (today for an open task, the last day worked for a Done one), the same way Summary and Description already were</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Task rows show a meeting icon for meetings and how many of a task's sessions are logged to Jira and how many aren't</li>
+            <li>Meetings picked up by the meeting detector are now flagged as meetings when the session is created</li>
+            <li>Reports' CSV export has two new columns: Meeting and Jira logged</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Reports' Meetings % and Deep-work % now count only sessions actually flagged as meetings. Before, a session whose description merely contained words like "call", "sync" or "review" was counted too, so the KPI, the donut and the Meetings filter could disagree. Past date ranges may now show a lower Meetings %</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.22.3 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.22.3</span>
+        <span class="release-date">September 18, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>The "Welcome back" idle-return popup could fail with a raw "timeout of 10000ms exceeded" error — the server sleeps after long inactivity, and the first request after you returned could arrive before it finished waking up. The app now wakes the server the moment it detects you're back, before you've had a chance to click anything</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.22.2 -->
     <div class="release">
       <div class="release-header">
