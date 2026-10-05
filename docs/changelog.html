@@ -125,6 +125,40 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.37.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.37.0</span>
+        <span class="release-date">October 5, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>A break is now said where it matters. A session with a break inside it shows what was taken off under its time — <code>0:48 / 11:48 AM – 12:57 PM / +0:21 break = 1:09</code> — so the number beside the span is no longer a puzzle. The same sum is on the task page (under each session, and "21m break not counted" in the header), on the running timer, in Quick Capture and in the tray menu</li>
+            <li>A running timer's clock now stands still through its break, so it reads what will be logged when you stop (it used to climb through the break and then drop)</li>
+            <li>Edit session says what it will count, live: "This session will count 0:54 +0:15 break = 1:09" moves as you change the times, the break or the minutes not counted</li>
+            <li>A Breaks option in the Type filter shows only your break sessions — in the Today list, All Tasks, Reports and the AI apps. Breaks still show under All, and the day line says how long they took ("0:41 on breaks")</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Time you chose not to count ("Don't count this time") is part of the same sum instead of a "−45m away" tag, so a session says all of what was taken off in one place</li>
+            <li>The Reports CSV has two new columns, Break taken off (min) and Away taken off (min), so End − Start can be reconciled with Duration</li>
+            <li>Ask FlowTrack and other AI apps see how long a session's break and time away were</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>The tray menu and tooltip no longer show a different time from the dashboard for a timer that has a break</li>
+            <li>"Don't count this time" can't take off more than what still counts once a break is already off the timer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.36.0 -->
     <div class="release">
       <div class="release-header">
