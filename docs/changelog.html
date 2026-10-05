@@ -125,6 +125,40 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.36.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.36.0</span>
+        <span class="release-date">October 5, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Choose what a new Jira ticket asks, in Settings → Jira → New ticket form. The fields come from your own Jira for the project and issue type; what Jira requires is always on the form, and anything else is yours to choose. Each field can start with a value — story points, complexity, team, "the sprint that is running" — so you stop typing the same things. Until you choose, the form offers Team, Sprint and Original estimate as before</li>
+            <li>Create a Jira ticket from Quick Capture: "Also create a Jira ticket" sits beside "This is a meeting". It starts from your settings, says in one line what the ticket will be created with, and asks only for what Jira requires and nothing you saved covers. The ticket is made after the timer starts, so if Jira says no the timer keeps running and you can try again</li>
+            <li>Write with AI and Polish under every description box — the new-ticket description, Quick Capture, a session's Description, and the task page's description editor. Both are always there: write it from the summary, or tidy what you wrote. The new-ticket one also draws on your own session notes. Undo brings your words back</li>
+            <li>Renaming a task renames its Jira ticket too, and the sessions whose text was just the old title. Jira is asked first: if it says no, nothing changes and the page says why. A worklog already in Jira whose comment would change is marked out of date for you to update</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>The new-ticket form has real multi-selects (Project Phase, Components), labels, text areas and the estimate. The fields it can't fill (Assignee, a two-level choice like Service, Parent) are listed with the reason, and a project that requires one says so</li>
+            <li>Quick Capture's recent tasks are work only — meetings no longer take their places (searching still finds a meeting by name)</li>
+            <li>When Jira refuses a ticket you read its reason ("Project Phase is required."), not raw JSON</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Creating a ticket no longer ends with "A resource with the same unique identifier already exists" although the ticket was made</li>
+            <li>The Sprint choice on the new-ticket form loads again (it failed with "scope does not match"), and Team and Sprint say why when Jira refuses instead of showing an empty list. Nothing to reconnect</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.35.0 -->
     <div class="release">
       <div class="release-header">
