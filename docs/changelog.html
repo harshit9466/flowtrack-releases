@@ -125,6 +125,58 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.39.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.39.0</span>
+        <span class="release-date">October 10, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>The "No timer running" popup now finds your tasks. The box that says what you were doing also searches them, and with nothing typed it lists the latest ones. Pick one and the time goes onto that task — with the same "Backdate timer to…" as before — instead of onto a second task with a similar name. Typing something that isn't a task still starts a new one, and the popup tells you so before you press Start</li>
+            <li>Resuming a task, in the popup or in Quick Capture, has a box for notes about the session. It is optional: pick the task and press Enter to start, or write what you already know first. The note shows on the task page, goes into the Jira worklog comment, and is already in the note box when you stop the timer</li>
+            <li>The ticket page shows the Jira fields you chose in Settings → Jira → New ticket form, plus what Jira requires — Priority, Story Points, Team, Sprint, Labels and the rest — read from Jira when the page opens. Edit changes them, and Save to Jira sends only what you changed. A required field can't be emptied; if Jira refuses a value you see Jira's own reason with the field's name; a multi-line field that has formatting (a list, a link) is shown, and edited in Jira so nothing is lost</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>The "No timer running" window is taller, and its task list scrolls inside it while the question and buttons stay in place</li>
+            <li>Resuming a task from Quick Capture is now a click and Enter instead of a single click, so there is a place for a note. Ask FlowTrack and other AI apps can pass the note along when they continue a task</li>
+            <li>The ticket page no longer says priority, sprint or story points twice when the fields already show them</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.38.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.38.0</span>
+        <span class="release-date">October 5, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Logging a session that had a break now asks what Jira should get: the time it counts (<code>0:48</code>), or that plus the break (<code>1:09</code>). A short break that was really part of the task — a quick meeting at a colleague's desk — can go into the worklog; a coffee break doesn't have to. Your own total in FlowTrack is the same either way, and time you chose not to count ("Don't count this time") is never added</li>
+            <li>The question appears where you log: under the row when you press Log hours, on the task page, right after you stop a timer that had a break, and in Ask FlowTrack's Log to Jira button. "Don't ask again" makes your answer the default</li>
+            <li>Settings → Jira → "When a session had a break": ask me each time, leave it out (what every worklog did until now), or add it</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>A worklog that went in with its break says so: the row's pill reads "Logged 1:09" instead of "Logged", and the task page says "incl. break" with a Change link. A worklog that went in without it offers "Add the break", in case you decide afterwards that it was part of the task</li>
+            <li>Until you answer, a session with a break is not sent to Jira on its own and is not sent without its break: it waits, and its pill reads "Log hours"</li>
+            <li>The Reports CSV has a column, Break added in Jira (min), so Jira's hours can be reconciled with Duration; Ask FlowTrack and other AI apps see how much break a worklog holds, and ask you before choosing for you</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.37.1 -->
     <div class="release">
       <div class="release-header">
