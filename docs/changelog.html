@@ -125,6 +125,30 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.41.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.41.0</span>
+        <span class="release-date">October 13, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Change a session's time without leaving the ticket page. Click the time beside a session (or press Enter on it) and an editor opens right there: when it started and ended, the break you took, and any time you were away. As you type it shows what the session will count — "55m +30m break +5m away = 1h 30m" — and for a session whose hours are already in Jira it says what the worklog there will become; Save then reads "Save and update Jira". Esc or Cancel changes nothing</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>A timer that was left running and parked now says "Needs an end time" in amber on the ticket page, with a "Set end time" button under it that opens the editor on its end time, with the day already filled in</li>
+            <li>A running timer's start can be corrected from the ticket page as well; it still ends only when you stop it. An end before the start is refused, with a hint to move the end date when the session ran past midnight</li>
+            <li>Changing a time leaves the rest of the session as it was: the seconds of a start or end you didn't touch, the notes, the description and the kind of break</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.40.0 -->
     <div class="release">
       <div class="release-header">
