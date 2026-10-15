@@ -125,6 +125,55 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.42.1 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.42.1</span>
+        <span class="release-date">October 15, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>All Tasks has a Refresh button. It re-reads your tickets from Jira (status and sprint) and loads the list again, and your search, status, sort, filters and page stay as they are. Before, the only way to refresh was reloading the window, which dropped every filter</li>
+            <li>A "Sprint ended" choice in the Sprint filter: tickets that are only in sprints that have finished — done there, or sent back to the backlog</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>"Not in a sprint" no longer lists tickets that finished in an ended sprint (a Done ticket in a closed sprint showed there). The three choices now say what a task's sprint tag says: In a sprint now, Sprint ended, Not in a sprint</li>
+            <li>A ticket FlowTrack has not read from Jira yet is no longer counted as "no sprint". While a Sprint filter is on, those tickets are read from Jira for you, once, and the list comes back with them in the right place</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.42.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.42.0</span>
+        <span class="release-date">October 15, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Every task now says which sprint its ticket is in: "Sprint 12" while it runs, "Sprint 13 · upcoming" before it starts, "Sprint 11 · ended" when the ticket is only in finished sprints, and "No sprint" for the backlog. It is on the All Tasks list and on the task page. Until FlowTrack has read a ticket from Jira it says nothing rather than guessing</li>
+            <li>Reports has a By Sprint card: how much of your time was worked in a sprint, split by the sprint that was running on the day you worked. A ticket carried over from one sprint to the next splits its hours between them. Hours that belong to no sprint (no ticket, the backlog, before or after a ticket's sprints) are rows of their own, so the rows always add up to the period's total. The CSV export gets a Sprint column</li>
+            <li>A Sprint filter on All Tasks and Reports: In a sprint, Not in a sprint, or the hours worked in one particular sprint. It narrows every chart, the By Sprint card and the export together</li>
+            <li>Settings → Jira → Ticket fields lists every field Jira has, not only the ones on the create screen. The ticket page shows the ones you pick (Time spent, Created, Reporter…) as plain facts</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>A ticket's sprint is taken from the sprint that is running, not from the last one Jira lists — Jira doesn't list a ticket's sprints in date order</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.41.0 -->
     <div class="release">
       <div class="release-header">
