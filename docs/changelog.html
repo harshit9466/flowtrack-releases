@@ -125,6 +125,31 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.43.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.43.0</span>
+        <span class="release-date">October 23, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>Arrange your dashboard. The All Tasks panel folds away with the chevron in its header: the Today list then takes the whole width, and an All Tasks button in the Today header brings the panel back</li>
+            <li>The Type / Ticket / Jira hours filters fold into a small chip. While a filter is on, the chip says which (Filtered: Meetings · Not logged), so a hidden filter never narrows your lists out of sight. Click the chip to open the filters, ✕ to clear them</li>
+            <li>The day line is yours to choose. Hide it, or pick and order what it says: time tracked, share of your daily goal, time left to the goal, sessions, tasks worked on, time in meetings, break time, hours in Jira, hours not in Jira yet, timers running, day streak. When the window is narrow the line drops items from the end instead of wrapping, so put the ones you care about first. Every number still follows the filters you have on. Change it with the sliders button beside the numbers, or in Settings → Profile → Dashboard. Choices are kept on this computer</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Meetings are detected again on Windows 11 version 26H2 (the update of October 18). That update stopped recording which app is using the microphone, and FlowTrack was relying on it, so calls went unnoticed. FlowTrack now also watches the live audio sessions, and writes every microphone open and release by a meeting app to its log</li>
+            <li>A Jira worklog set to "Log after N minutes" is now pushed whichever way you stopped the timer — from the tray, Quick Capture, a popup, the end of a meeting or an AI app — and even if the window was closed or the app restarted. It used to stay "Queued" for good unless the dashboard's own Stop button had been used</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.42.2 -->
     <div class="release">
       <div class="release-header">
