@@ -125,6 +125,44 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.48.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.48.0</span>
+        <span class="release-date">November 26, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>A Jira page in the sidebar: your tickets, any ticket on your company's Jira, and changes to them, without opening Jira. If Jira isn't connected yet, the page explains what it does and connects from there</li>
+            <li>Views: Assigned to me (your open tickets, by due date, then priority), Watching, Reported by me, Recent (the tickets you opened in FlowTrack), Updated by me (the last 14 days) and All of Jira (anything changed in the last 30 days). A view's filters stay on screen, so you can always see what the list holds</li>
+            <li>Find any ticket: type its key to open it, or a few words to see suggestions, and press Enter to search all of Jira. Press / to jump to the search box</li>
+            <li>Filter by status, assignee, reporter, project, type, priority, due date (late, today, this week, the next 7 days, not set), when it was updated, and the tickets you watch. JQL shows the query behind your filters, and you can type your own</li>
+            <li>Choose your columns from your Jira's fields, plus FlowTrack's own: your time on the ticket, the hours not in Jira yet and when you last worked on it. Your columns and view are remembered on this computer</li>
+            <li>Change a ticket right in the list, as in Jira: click its status to move it, its assignee to assign it (to you, to nobody, or to anyone on your site), or a date, the reporter, the priority or another field to edit it in place. Where Jira doesn't let FlowTrack make a change, the field says "Change it in Jira"</li>
+            <li>▶ starts a timer on a ticket, continuing its task or creating one with the ticket's title. If the ticket hasn't been started in Jira, FlowTrack offers to move it to In progress; nothing moves unless you click</li>
+            <li>Open any ticket on its own page, even one you haven't worked on in FlowTrack yet, and use J and K to go through the list</li>
+            <li>Tickets that changed since you last looked are marked, and changes you made from FlowTrack don't count</li>
+            <li>If Jira asks apps to slow down, the page says so and when to try again</li>
+            <li>Don't need it? Untick "Show Jira in the sidebar" in Settings → Integrations → Jira</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Read my tickets (it was Sync Sprint, in Settings → Integrations → Jira) now leaves out every finished ticket, whatever your Jira calls its last status. Before, only tickets called Done or Cancelled were left out</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>When to log → At end of day (Settings → Integrations → Jira) now sends the day's sessions to Jira when your work hours end, even if FlowTrack is closed, and work after that at midnight. Before, those sessions stayed "Queued" until you pressed Log. If a session had a break, FlowTrack asks at Stop whether to include it, as in the other modes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.47.0 -->
     <div class="release">
       <div class="release-header">
