@@ -51,7 +51,7 @@
 
   <main class="legal">
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: September 11, 2026</p>
+    <p class="updated">Last updated: November 27, 2026</p>
 
     <p>FlowTrack™ ("we", "our", "the app") is a desktop time-tracking application built by Harshit Sharma. This policy explains what data we collect, how we use it, and your rights.</p>
 
@@ -59,6 +59,9 @@
     <p><strong>Account data:</strong> When you register, we collect your email address, display name, and a hashed password. We never store your password in plain text.</p>
     <p><strong>Time-tracking data:</strong> Task sessions (description, start/end time, ticket numbers, notes) that you create. This is the core data you use the app for.</p>
     <p><strong>Settings:</strong> Your preferences (timezone, work hours, AI provider configuration, Jira connection).</p>
+    <p><strong>Jira (only if you connect it):</strong> Your Jira sign-in (OAuth tokens, encrypted at rest) and, for the tickets you work on, open in FlowTrack or that are assigned to you, their key, title, description, status, type, priority, assignee's name, sprints, story points and original estimate, kept so lists open quickly. Also the filters, sort and saved views of your Jira page lists, and your choices for the new-ticket form. Jira comments and history are read from Jira when you open them and never stored. Disconnecting Jira removes your Jira sign-in; the ticket details above stay with your account until you delete it.</p>
+    <p><strong>AI app access tokens:</strong> If you connect an AI app to FlowTrack (Settings → AI), only a hash of its access token is stored, with when it was last used. The token itself is shown to you once, and you can revoke it at any time.</p>
+    <p><strong>On your computer only:</strong> Some choices stay on the computer you make them on: the dashboard's layout, the Jira page's columns, a copy of your Jira page lists (so the page opens at once), and the email and display name you last signed in with, so the sign-in screen can say "Welcome back" (never your password). FlowTrack also writes a diagnostic log on your computer, keeping the last three files, which is never sent to us.</p>
     <p><strong>Feedback:</strong> If you submit feedback through the app, we store your message, subject, and optional app version / OS info.</p>
     <p><strong>We do not collect:</strong></p>
     <ul>
@@ -81,7 +84,7 @@
     <h2>3. Desktop app features</h2>
     <p>FlowTrack's desktop app includes optional features that run locally on your computer:</p>
     <ul>
-      <li><strong>Meeting detection:</strong> For Microsoft Teams, if you enable Teams' own "third-party app API access" setting, FlowTrack connects to a local API Teams exposes on your machine to read meeting state directly. For Zoom, Google Meet, Webex, and Slack Huddle (and Teams as a fallback), FlowTrack checks running process names and window titles instead. No audio is recorded, and no video or call content is accessed, in either case — detection happens entirely on your device.</li>
+      <li><strong>Meeting detection:</strong> FlowTrack sees when Teams, Zoom, Webex, Slack or a browser meeting holds your microphone, from two things Windows itself provides: its record of when each app last started and stopped using the microphone (the record behind the microphone icon in the taskbar), and the list of apps with an open audio stream right now (what the volume mixer shows). It reads only which app and when, never any sound. It reads the titles of the meeting app's windows to name the meeting and, while a browser is using the microphone, the browser's window titles to see whether a meeting page is open. No audio is recorded, and no video or call content is accessed. Detection happens entirely on your device; only the meeting's name and times are stored with your sessions, and when a meeting app opened or released the microphone or speakers is noted in the diagnostic log on your computer.</li>
       <li><strong>Idle monitoring:</strong> Uses Windows APIs to detect when you're away. No data is sent externally — it only triggers a local prompt.</li>
       <li><strong>Activity tracking:</strong> Reads the foreground window's title (to identify which application you're using) for nudge purposes. This data is held in memory only, is used solely to display an app-name summary in the "no timer running" prompt, is never written to disk, and is never sent to our servers.</li>
     </ul>
@@ -105,7 +108,8 @@
     </ul>
     <p>The following only apply if you choose to enable them:</p>
     <ul>
-      <li><strong>Jira (Atlassian):</strong> Only if you connect your Jira account via OAuth — used to pull tickets and push worklogs.</li>
+      <li><strong>Jira (Atlassian):</strong> Only if you connect your Jira account via OAuth. FlowTrack acts as you: it reads the tickets you can see in Jira, and writes only what you do in FlowTrack (worklogs, status moves, field edits, comments, assignments and new tickets), which show in Jira under your name.</li>
+      <li><strong>AI apps you connect:</strong> If you create an access token for an AI app (Claude Code, Codex, GitHub Copilot, Antigravity or Claude Desktop), that app can read your sessions and tasks through FlowTrack's MCP server and, when you ask it to, start or stop timers, log time, change notes or log hours to Jira. What the AI app does with that data is governed by that app. "Ask FlowTrack" either runs Claude Code on your computer with FlowTrack's MCP server as its only tool, or, with a network AI provider configured, sends your question and the FlowTrack data the model looks up to answer it to that provider.</li>
       <li><strong>AI providers — network API:</strong> If you configure OpenAI, Anthropic (Claude API), or Google (Gemini API), your session descriptions are sent over the network to that provider to generate summaries, subject to that provider's own privacy policy.</li>
       <li><strong>AI providers — local CLI tools:</strong> If you configure Claude Code CLI, Gemini CLI, or Antigravity, FlowTrack instead runs that tool as a local subprocess on your machine and passes it the prompt directly — no network call is made by FlowTrack itself in this case. Any further data handling is governed by the CLI tool you've separately installed and authenticated, not by FlowTrack.</li>
       <li><strong>Ollama:</strong> Runs as a model you host yourself (typically on your own machine or network) — your session descriptions are sent to whichever Ollama endpoint you've configured, which you control.</li>
