@@ -125,6 +125,36 @@
       <p>What's new, improved, and fixed in each release.</p>
     </div>
 
+    <!-- v2.51.0 -->
+    <div class="release">
+      <div class="release-header">
+        <span class="release-version">v2.51.0</span>
+        <span class="release-date">November 28, 2026</span>
+      </div>
+      <div class="release-body">
+        <div class="section section-new">
+          <div class="section-title"><span class="section-icon">🆕</span> New</div>
+          <ul>
+            <li>On the dashboard, a task with several sessions has a ⋯ menu for all of them at once: Change ticket, Mark all as meeting, Mark all as break, Mark task done, Exclude all from total and Delete all sessions</li>
+            <li>Deleting a session that is logged in Jira asks whether to delete its worklog from Jira too. The box starts ticked; Settings → Integrations changes that. Jira is asked first — if it refuses, nothing is deleted</li>
+            <li>The Today and Yesterday lists show each ticket's Jira status, like All Tasks does, and you can move the ticket from there</li>
+          </ul>
+        </div>
+        <div class="section section-improved">
+          <div class="section-title"><span class="section-icon">🔧</span> Improved</div>
+          <ul>
+            <li>Quick Capture: Log past work is on the left and Start timer on the right</li>
+          </ul>
+        </div>
+        <div class="section section-fixed">
+          <div class="section-title"><span class="section-icon">🐛</span> Fixed</div>
+          <ul>
+            <li>Insights: Estimate vs Actual and By Issue Type were always empty, because FlowTrack never read a ticket's issue type or estimate from Jira. It does now, and tickets read before are read once more the first time Insights shows them</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- v2.50.0 -->
     <div class="release">
       <div class="release-header">
